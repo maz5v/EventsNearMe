@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Events Near Me</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="WelcomeMessage">Hello! Start finding events near you!</string>
+    <string name="MainPageGo">Go!</string>
+    <string name="EmptyText" />
+    <string name="GetCoordinates">Get Coordinates</string>
+    <string name="Warnings">Warnings</string>
+    <string name="FreeStuff">Free Stuff</string>
+    <string name="Entertainment">Entertainment</string>
+    <string name="EventTypes">Filter which types of events you would like to see:</string>
+    <string name="title_activity_welcome_page">WelcomePage</string>
+    <string name="welcome_message">Welcome to EventsNearMe!</string>
+    <string name="welcome_submessage">What would you like to do?</string>
+    <string name="find_something_near_me">Find something near me</string>
+    <string name="share_an_event">Share an event</string>
+    <string name="visit_newsfeed">Visit newsfeed</string>
+    <string name="title_activity_events_map">EventsMap</string>
+    <string name="filter_events_by">Filter events by:</string>
+    <string name="title_activity_create_event">CreateEvent</string>
+    <string name="create_an_event">Create an event</string>
+    <string name="event_title">Event title</string>
+    <string name="description">Description</string>
+    <string name="add_tags">Add tags:</string>
+    <string name="location">Location:</string>
+    <string name="use_my_location">Use my location</string>
+    <string name="select_on_map">Select on map</string>
+    <string name="add_an_image">Add an image (optional)</string>
+    <string name="share_event">Share event!</string>
+    <string name="title_activity_event_info">EventInfo</string>
+    <string name="event_info">Event Information</string>
+    <string name="return_home">Return Home</string>
+    <string name="title_activity_events_page">EventsPage</string>
+    <string name="view_my_events">View My Events</string>
+    <string name="events_you_made">Events You\'ve Made</string>
+</resources>
