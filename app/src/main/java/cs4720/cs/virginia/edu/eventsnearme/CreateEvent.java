@@ -89,23 +89,23 @@ public class CreateEvent extends AppCompatActivity {
         String tag1 = "";
         if(tagButton1.isChecked()) {
             //tag1 = tagButton1.getText().toString();
-            tag1 = "tag1";
+            tag1 = "Food";
         }
-        intent.putExtra(EXTRA_TAG1, "Food");
+        intent.putExtra(EXTRA_TAG1, tag1);
 
         ToggleButton tagButton2 = (ToggleButton) findViewById(R.id.tag2);
         String tag2 = "";
         if(tagButton2.isChecked()) {
-            tag2 = "tag2";
+            tag2 = "Entertainment";
         }
-        intent.putExtra(EXTRA_TAG2, "Entertainment");
+        intent.putExtra(EXTRA_TAG2, tag2);
 
         ToggleButton tagButton3 = (ToggleButton) findViewById(R.id.tag3);
         String tag3 = "";
         if(tagButton3.isChecked()) {
-            tag3 = "tag3";
+            tag3 = "Shopping";
         }
-        intent.putExtra(EXTRA_TAG3, "Shopping");
+        intent.putExtra(EXTRA_TAG3, tag3);
 
         try {
             FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
@@ -190,6 +190,8 @@ public class CreateEvent extends AppCompatActivity {
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
+                Log.i("path", photoURI.getPath());
+                Log.i("path2", photoURI.getEncodedPath());
             }
         }
     }
