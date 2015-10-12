@@ -150,6 +150,7 @@ public class CreateEvent extends AppCompatActivity {
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
+                Log.i("Error 1", "");
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }*/
 
@@ -187,6 +188,7 @@ public class CreateEvent extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.parse(data.getStringExtra(MediaStore.EXTRA_OUTPUT));
+                Log.i("Error 2", "");
             }
         }
         else if (requestCode == REQUEST_PICK_PHOTO) {

@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'EventsNearMeAPK'
+            keyPassword 'password'
+            storeFile file('C:/Users/Mike/Documents/School - 4th Year 1st Semester/CS 4720/Android Project/Keystore/android.jks')
+            storePassword 'password'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
-
     defaultConfig {
         applicationId "cs4720.cs.virginia.edu.eventsnearme"
         minSdkVersion 15
@@ -15,12 +22,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.google.android.gms:play-services:7.3.+'
 }

@@ -97,7 +97,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         map.setMyLocationEnabled(true);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 13));
+                new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 16));
     }
 
     @Override
