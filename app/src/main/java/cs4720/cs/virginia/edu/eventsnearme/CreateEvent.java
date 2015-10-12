@@ -123,7 +123,7 @@ public class CreateEvent extends AppCompatActivity {
             Log.d("Error Checking: ", finalString);
             output.close();
         } catch (Exception e) {
-            
+            Log.i("Exception while writing to file", e.getMessage());
         }
 
         if (photoFile != null)
@@ -150,13 +150,8 @@ public class CreateEvent extends AppCompatActivity {
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                Log.i("Uri.fromFile gives: ", Uri.fromFile(photoFile).toString());
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
-
-            /*File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);*/
         }
     }
 
@@ -186,12 +181,9 @@ public class CreateEvent extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("requestCode: ", "" + requestCode);
-        Log.i("resultCode: ", "" + resultCode);
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
-                photoURI = Uri.parse(data.getStringExtra(MediaStore.EXTRA_OUTPUT));
-                Log.i("Uri.parse: ", photoURI.toString());
+                photoURI = Uri.fromFile(photoFile);
             }
         }
         else if (requestCode == REQUEST_PICK_PHOTO) {

@@ -133,7 +133,8 @@
         android:layout_below="@+id/tag1"
         android:layout_alignLeft="@+id/radioGroup2"
         android:layout_alignStart="@+id/radioGroup2"
-        android:layout_marginTop="66dp" />
+        android:layout_marginTop="66dp"
+        android:onClick="dispatchPickPictureIntent"/>
 
     <Button
         android:layout_width="wrap_content"
