@@ -54,8 +54,8 @@
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
         android:id="@+id/tag1"
-        android:textOff="Tag 1"
-        android:textOn="Tag 1"
+        android:textOff="@string/tag1"
+        android:textOn="@string/tag1"
         android:layout_alignTop="@+id/description"
         android:layout_toLeftOf="@+id/button7"
         android:layout_toStartOf="@+id/button7" />
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
         android:id="@+id/tag2"
-        android:textOff="Tag 2"
-        android:textOn="Tag 2"
+        android:textOff="@string/tag2"
+        android:textOn="@string/tag2"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/tag1"
         android:layout_alignStart="@+id/tag1" />
@@ -76,11 +76,11 @@
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
         android:id="@+id/tag3"
-        android:textOff="Tag 3"
-        android:textOn="Tag 3"
-        android:layout_above="@+id/tag2"
-        android:layout_alignRight="@+id/button7"
-        android:layout_alignEnd="@+id/button7" />
+        android:textOff="@string/tag3"
+        android:textOn="@string/tag3"
+        android:layout_below="@+id/tag2"
+        android:layout_toRightOf="@+id/radioGroup"
+        android:layout_toEndOf="@+id/radioGroup" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,7 +100,9 @@
         android:layout_above="@+id/button7"
         android:layout_alignLeft="@+id/textView11"
         android:layout_alignStart="@+id/textView11"
-        android:layout_below="@+id/textView11">
+        android:layout_below="@+id/textView11"
+        android:layout_toLeftOf="@+id/tag2"
+        android:layout_toStartOf="@+id/tag2">
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -112,7 +114,7 @@
         android:layout_alignLeft="@+id/textView11"
         android:layout_alignStart="@+id/textView11" />
 
-    <RadioButton
+        <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_on_map"
@@ -128,10 +130,10 @@
         android:layout_height="wrap_content"
         android:text="@string/add_image_from_gallery"
         android:id="@+id/button6"
-        android:layout_alignBaseline="@+id/tag2"
-        android:layout_alignBottom="@+id/tag2"
-        android:layout_alignRight="@+id/radioGroup"
-        android:layout_alignEnd="@+id/radioGroup" />
+        android:layout_below="@+id/button9"
+        android:layout_alignLeft="@+id/button9"
+        android:layout_alignStart="@+id/button9"
+        android:onClick="dispatchPickPictureIntent"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -148,18 +150,58 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/image_choice"
         android:id="@+id/textView14"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_alignLeft="@+id/button6"
-        android:layout_alignStart="@+id/button6" />
+        android:layout_alignBottom="@+id/tag2"
+        android:layout_alignLeft="@+id/button9"
+        android:layout_alignStart="@+id/button9" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/take_new_image"
         android:id="@+id/button9"
-        android:layout_above="@+id/button6"
-        android:layout_alignLeft="@+id/button6"
-        android:layout_alignStart="@+id/button6"
-        android:onClick="dispatchTakePictureIntent"/>
+        android:onClick="dispatchTakePictureIntent"
+        android:layout_marginRight="96dp"
+        android:layout_marginEnd="96dp"
+        android:layout_alignTop="@+id/textView11"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/title"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        android:layout_alignBottom="@+id/tag1">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_up_float"
+            android:onClick="upVote" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Rating 1-10"
+            android:id="@+id/textView15"
+            android:layout_alignTop="@+id/description"
+            android:layout_alignLeft="@+id/button9"
+            android:layout_alignStart="@+id/button9"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton2"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_down_float"
+            android:onClick="downVote" />
+    </LinearLayout>
+
 
 </RelativeLayout>

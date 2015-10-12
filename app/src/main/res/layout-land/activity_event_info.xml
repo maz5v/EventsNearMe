@@ -61,4 +61,24 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventPicture"
+        android:layout_above="@+id/returnHome"
+        android:layout_below="@id/textView12"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginRight="180dp"
+        android:contentDescription="@string/Event_Picture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/eventRatingInfo"
+        android:layout_toRightOf="@id/eventPicture"
+        android:layout_centerVertical="true" />
+
 </RelativeLayout>

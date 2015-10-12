@@ -65,11 +65,11 @@
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
         android:id="@+id/tag2"
-        android:layout_alignTop="@+id/tag1"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9"
         android:textOff="@string/tag2"
-        android:textOn="@string/tag2" />
+        android:textOn="@string/tag2"
+        android:layout_above="@+id/button6"
+        android:layout_alignLeft="@+id/textView14"
+        android:layout_alignStart="@+id/textView14" />
 
     <ToggleButton
         android:layout_width="wrap_content"

@@ -76,10 +76,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/eventPicture"
         android:layout_above="@+id/returnHome"
-        android:layout_alignLeft="@+id/returnHome"
-        android:layout_alignStart="@+id/returnHome"
         android:layout_below="@id/eventRatingInfo"
-        android:layout_marginBottom="173dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginTop="150dp"
         android:contentDescription="@string/Event_Picture" />
 
 </RelativeLayout>
