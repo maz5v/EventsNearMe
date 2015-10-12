@@ -24,6 +24,8 @@ public class EventsPage extends AppCompatActivity {
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
+    public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
+    public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
 
     private String[] titles;
     private ArrayList<String> tempTitles = new ArrayList<>();
@@ -168,10 +170,24 @@ public class EventsPage extends AppCompatActivity {
 
             index = temp.indexOf("Rating: ");
             temp = temp.substring(index + 8);
-            spaceIndex = temp.indexOf(" |||");
+            spaceIndex = temp.indexOf(" Latitude:");
             String rating = temp.substring(0, spaceIndex);
             Log.i("Rating: ", rating);
             intent.putExtra(EXTRA_RATING, rating);
+
+            index = temp.indexOf("Latitude: ");
+            temp = temp.substring(index + 10);
+            spaceIndex = temp.indexOf(" Longitude: ");
+            String lat = temp.substring(0, spaceIndex);
+            Log.i("Latitude: ", lat);
+            intent.putExtra(EXTRA_LAT, lat);
+
+            index = temp.indexOf("Longitude: ");
+            temp = temp.substring(index + 11);
+            spaceIndex = temp.indexOf(" ||| ");
+            String lon = temp.substring(0, spaceIndex);
+            Log.i("Longitude: ", lon);
+            intent.putExtra(EXTRA_LONG, lon);
 
             startActivity(intent);
 

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private TextView mLongitudeText;
 
     @Override
-    protected void onStart() {
+     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
 

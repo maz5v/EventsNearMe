@@ -3,6 +3,7 @@ package cs4720.cs.virginia.edu.eventsnearme;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,8 +27,12 @@ import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
-public class CreateEvent extends AppCompatActivity {
+
+public class CreateEvent extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
     public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
@@ -36,6 +41,8 @@ public class CreateEvent extends AppCompatActivity {
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
+    public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
+    public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
 
@@ -45,10 +52,13 @@ public class CreateEvent extends AppCompatActivity {
     String mCurrentPhotoPath;
     public int rating = 5;
 
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        buildGoogleApiClient();
         setContentView(R.layout.activity_create_event);
     }
 
@@ -72,6 +82,27 @@ public class CreateEvent extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 
     public void shareEvent(View view) {
@@ -118,7 +149,15 @@ public class CreateEvent extends AppCompatActivity {
             if(photoURI != null)
                 finalString = finalString + " Image: " + photoURI.toString();
             else finalString = finalString + " Image: NO_IMAGE";
-            finalString = finalString + "Rating: " + rating;
+            finalString = finalString + " Rating: " + rating;
+            if (mLastLocation != null) {
+                finalString = finalString + " Latitude: " + String.valueOf(mLastLocation.getLatitude());
+                finalString = finalString + " Longitude: " + String.valueOf(mLastLocation.getLongitude());
+            }
+            else {
+                finalString = finalString + " Latitude: LAT_ERROR";
+                finalString = finalString + " Longitude: LONG_ERROR";
+            }
             finalString = finalString + " ||| ";
             output.write(finalString.getBytes());
             Log.d("Error Checking: ", finalString);
@@ -132,6 +171,11 @@ public class CreateEvent extends AppCompatActivity {
         else intent.putExtra(PHOTO_URI, "NO_IMAGE");
         String ratingString = "" + rating;
         intent.putExtra(EXTRA_RATING, ratingString);
+
+        if (mLastLocation != null) {
+            intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
+            intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));
+        }
 
         startActivity(intent);
     }
@@ -200,7 +244,7 @@ public class CreateEvent extends AppCompatActivity {
         if(rating == 10) return;
         rating++;
         TextView ratingView = (TextView) findViewById(R.id.eventRating);
-        ratingView.setText(""+rating);
+        ratingView.setText("" + rating);
     }
 
     public void downVote(View view) {
@@ -208,5 +252,21 @@ public class CreateEvent extends AppCompatActivity {
         rating--;
         TextView ratingView = (TextView) findViewById(R.id.eventRating);
         ratingView.setText(""+rating);
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.i("Finding Location", "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
     }
 }
