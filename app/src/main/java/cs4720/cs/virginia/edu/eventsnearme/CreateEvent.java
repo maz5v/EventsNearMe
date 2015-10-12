@@ -129,7 +129,8 @@ public class CreateEvent extends AppCompatActivity {
         if (photoFile != null)
             intent.putExtra(PHOTO_URI, photoURI.toString());
         else intent.putExtra(PHOTO_URI, "NO_IMAGE");
-        intent.putExtra(EXTRA_RATING, rating);
+        String ratingString = "" + rating;
+        intent.putExtra(EXTRA_RATING, ratingString);
 
         startActivity(intent);
     }
@@ -139,7 +140,7 @@ public class CreateEvent extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            try {
+            /*try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
@@ -150,7 +151,11 @@ public class CreateEvent extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
+            }*/
+
+            File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
         }
     }
 

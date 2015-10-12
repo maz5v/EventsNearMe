@@ -51,9 +51,10 @@ public class EventInfo extends AppCompatActivity {
         }
         else eventImage.setImageURI(Uri.parse(imageURIString));
 
+
         String rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
-        eventRating.setText(rating);
+        eventRating.setText("Rating: " + rating);
     }
 
     @Override
