@@ -41,4 +41,5 @@
     <string name="tag1">Food</string>
     <string name="tag2">Entertainment</string>
     <string name="tag3">Shopping</string>
+    <string name="ClearFile">Clear File</string>
 </resources>
