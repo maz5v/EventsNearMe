@@ -114,7 +114,7 @@ public class CreateEvent extends AppCompatActivity {
             finalString = finalString + " Tag 1: " + tag1;
             finalString = finalString + " Tag 2: " + tag2;
             finalString = finalString + " Tag 3: " + tag3;
-            if(photoFile != null)
+            if(photoURI != null)
                 finalString = finalString + " Image: " + photoURI.toString();
             else finalString = finalString + " Image: NO_IMAGE";
             finalString = finalString + "Rating: " + rating;
@@ -180,18 +180,14 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        Log.i("requestCode: ", ""+requestCode);
-        Log.i("resultCode: ", ""+resultCode);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
-                Log.i("Uri.fromFile: ", photoURI.toString());
             }
         }
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
-                Log.i("data.getData: ", data.getDataString());
                 photoURI = data.getData();
             }
         }
