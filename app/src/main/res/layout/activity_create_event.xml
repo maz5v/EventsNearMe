@@ -166,4 +166,41 @@
         android:layout_above="@+id/button9"
         android:layout_centerHorizontal="true" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/tag3"
+        android:layout_toEndOf="@+id/tag3"
+        android:layout_above="@+id/tag1">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/upArrow"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_up_float"
+            android:onClick="upVote"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Rating 1-10"
+            android:id="@+id/eventRating"
+            android:layout_alignTop="@+id/description"
+            android:layout_alignLeft="@+id/button9"
+            android:layout_alignStart="@+id/button9"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/downArrow"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_down_float"
+            android:onClick="downVote"/>
+    </LinearLayout>
+
 </RelativeLayout>

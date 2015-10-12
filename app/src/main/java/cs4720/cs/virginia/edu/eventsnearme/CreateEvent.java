@@ -11,9 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.os.Environment;
 import android.net.Uri;
+
+import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,16 +35,16 @@ public class CreateEvent extends AppCompatActivity {
     public final static String EXTRA_TAG2 = "cs4720.cs.virginia.edu.eventsnearme.TAG2";
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
+    public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
 
     private final String file = "eventDataFile";
-
     File photoFile = null;
-
     Uri photoURI = null;
-
     String mCurrentPhotoPath;
+    public int rating = 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +117,7 @@ public class CreateEvent extends AppCompatActivity {
             if(photoFile != null)
                 finalString = finalString + " Image: " + photoURI.toString();
             else finalString = finalString + " Image: NO_IMAGE";
+            finalString = finalString + "Rating: " + rating;
             finalString = finalString + " ||| ";
             output.write(finalString.getBytes());
             Log.d("Error Checking: ", finalString);
@@ -124,6 +129,8 @@ public class CreateEvent extends AppCompatActivity {
         if (photoFile != null)
             intent.putExtra(PHOTO_URI, photoURI.toString());
         else intent.putExtra(PHOTO_URI, "NO_IMAGE");
+        intent.putExtra(EXTRA_RATING, rating);
+
         startActivity(intent);
     }
 
@@ -169,6 +176,7 @@ public class CreateEvent extends AppCompatActivity {
         return image;
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO) {
@@ -181,5 +189,19 @@ public class CreateEvent extends AppCompatActivity {
                 photoURI = data.getData();
             }
         }
+    }
+
+    public void upVote(View view) {
+        if(rating == 10) return;
+        rating++;
+        TextView ratingView = (TextView) findViewById(R.id.eventRating);
+        ratingView.setText(""+rating);
+    }
+
+    public void downVote(View view) {
+        if (rating == 1) return;
+        rating--;
+        TextView ratingView = (TextView) findViewById(R.id.eventRating);
+        ratingView.setText(""+rating);
     }
 }

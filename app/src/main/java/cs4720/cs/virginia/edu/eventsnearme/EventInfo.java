@@ -50,6 +50,10 @@ public class EventInfo extends AppCompatActivity {
             eventImage.setVisibility(View.GONE);
         }
         else eventImage.setImageURI(Uri.parse(imageURIString));
+
+        String rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
+        TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
+        eventRating.setText(rating);
     }
 
     @Override
