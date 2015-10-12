@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -38,6 +41,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
+    public final static String EXTRA_LONGITUDE = "cs4720.cs.virginia.edu.eventsnearme.LONGITUDE";
+    public final static String EXTRA_LATITUDE = "cs4720.cs.virginia.edu.eventsnearme.LATITUDE";
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -54,6 +59,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     private ArrayList<String> tag1s = new ArrayList<>();
     private ArrayList<String> tag2s = new ArrayList<>();
     private ArrayList<String> tag3s = new ArrayList<>();
+    private ArrayList<String> images = new ArrayList<>();
+    private ArrayList<String> ratings = new ArrayList<>();
 
     @Override
     protected void onStart() {
@@ -126,6 +133,42 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                 index2 = temp.indexOf(" ");
                 listInput = temp.substring(0, index2);
                 tag3s.add(listInput);
+
+                index = temp.indexOf("Image: ");
+                if (index == -1) {
+                    break;
+                }
+                temp = temp.substring(index + 7);
+                index2 = temp.indexOf(" ");
+                listInput = temp.substring(0, index2);
+                images.add(listInput);
+
+                index = temp.indexOf("Rating: ");
+                if (index == -1) {
+                    break;
+                }
+                temp = temp.substring(index + 8);
+                index2 = temp.indexOf(" ");
+                listInput = temp.substring(0, index2);
+                ratings.add(listInput);
+
+                index = temp.indexOf("Latitude: ");
+                if (index == -1) {
+                    break;
+                }
+                temp = temp.substring(index + 8);
+                index2 = temp.indexOf(" ");
+                listInput = temp.substring(0, index2);
+                latitudes.add(listInput);
+
+                index = temp.indexOf("Longitude: ");
+                if (index == -1) {
+                    break;
+                }
+                temp = temp.substring(index + 8);
+                index2 = temp.indexOf(" ");
+                listInput = temp.substring(0, index2);
+                longitudes.add(listInput);
             }
 
             //Just checking it worked
@@ -206,7 +249,45 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+
+                int index = -1;
+
+                for (int i = 0; i < titles.length; i++) {
+                    if (marker.getTitle().equals(titles[i])) {
+                        index = i;
+                        break;
+                    }
+                }
+
                 Intent intent = new Intent(EventsMap.this, EventInfo.class);
+
+                String title = marker.getTitle();
+                intent.putExtra(EXTRA_TITLE, title);
+
+                String description = descriptions.get(index);
+                intent.putExtra(EXTRA_DESCRIPTION, description);
+
+                String tag1 = tag1s.get(index);
+                intent.putExtra(EXTRA_TAG1, tag1);
+
+                String tag2 = tag2s.get(index);
+                intent.putExtra(EXTRA_TAG2, tag2);
+
+                String tag3 = tag3s.get(index);
+                intent.putExtra(EXTRA_TAG3, tag3);
+
+                String image = images.get(index);
+                intent.putExtra(PHOTO_URI, image);
+
+                String rating = ratings.get(index);
+                intent.putExtra(EXTRA_RATING, rating);
+
+                String latitude = latitudes.get(index);
+                intent.putExtra(EXTRA_LATITUDE, latitude);
+
+                String longitude = longitudes.get(index);
+                intent.putExtra(EXTRA_LONGITUDE, longitude);
+
                 startActivity(intent);
             }
         });
