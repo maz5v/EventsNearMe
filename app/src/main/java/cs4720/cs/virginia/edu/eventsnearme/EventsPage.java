@@ -22,6 +22,7 @@ public class EventsPage extends AppCompatActivity {
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
     public final static String EXTRA_TAG2 = "cs4720.cs.virginia.edu.eventsnearme.TAG2";
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
+    public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
 
     private String[] titles;
     private ArrayList<String> tempTitles = new ArrayList<>();
@@ -146,10 +147,17 @@ public class EventsPage extends AppCompatActivity {
 
             index = temp.indexOf("Tag 3: ");
             temp = temp.substring(index + 7);
-            spaceIndex = temp.indexOf(" |||");
+            spaceIndex = temp.indexOf(" Image:");
             String tag3 = temp.substring(0, spaceIndex);
             Log.i("Tag 3: ", tag3);
             intent.putExtra(EXTRA_TAG3, tag3);
+
+            index = temp.indexOf("Image: ");
+            temp = temp.substring(index + 7);
+            spaceIndex = temp.indexOf(" |||");
+            String imageURI = temp.substring(0, spaceIndex);
+            Log.i("Image URI: ", imageURI);
+            intent.putExtra(PHOTO_URI, imageURI);
 
             startActivity(intent);
 

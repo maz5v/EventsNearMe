@@ -101,7 +101,8 @@
         android:layout_alignLeft="@+id/tag1"
         android:layout_alignStart="@+id/tag1"
         android:layout_below="@+id/textView11"
-        android:layout_above="@+id/button7">
+        android:layout_above="@+id/button7"
+        android:id="@+id/radioGroup2">
 
     <RadioButton
         android:layout_width="wrap_content"
@@ -127,11 +128,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_an_image"
+        android:text="@string/add_image_from_gallery"
         android:id="@+id/button6"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/tag1"
-        android:layout_alignStart="@+id/tag1" />
+        android:layout_below="@+id/tag1"
+        android:layout_alignLeft="@+id/radioGroup2"
+        android:layout_alignStart="@+id/radioGroup2"
+        android:layout_marginTop="66dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -142,5 +144,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="99dp"
         android:onClick="shareEvent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/take_new_image"
+        android:id="@+id/button9"
+        android:layout_alignTop="@+id/button6"
+        android:layout_toRightOf="@+id/button6"
+        android:layout_toEndOf="@+id/button6"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:onClick="dispatchTakePictureIntent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/image_choice"
+        android:id="@+id/textView14"
+        android:layout_above="@+id/button9"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

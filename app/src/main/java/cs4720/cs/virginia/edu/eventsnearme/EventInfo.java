@@ -1,11 +1,14 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EventInfo extends AppCompatActivity {
@@ -41,6 +44,12 @@ public class EventInfo extends AppCompatActivity {
         TextView tagsText = (TextView)findViewById(R.id.tags);
         tagsText.setText(tag);
 
+        ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
+        String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
+        if (imageURIString.equals("NO_IMAGE")) {
+            eventImage.setVisibility(View.GONE);
+        }
+        else eventImage.setImageURI(Uri.parse(imageURIString));
     }
 
     @Override

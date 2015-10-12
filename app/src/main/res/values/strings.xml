@@ -27,7 +27,9 @@
     <string name="location">Location:</string>
     <string name="use_my_location">Use my location</string>
     <string name="select_on_map">Select on map</string>
-    <string name="add_an_image">Add an image (optional)</string>
+    <string name="add_image_from_gallery">Add an image from the photo gallery</string>
+    <string name="take_new_image">Take a picture</string>
+    <string name="image_choice">Want to add an image? (optional)</string>
     <string name="share_event">Share event!</string>
     <string name="title_activity_event_info">EventInfo</string>
     <string name="event_info">Event Information</string>
@@ -35,4 +37,5 @@
     <string name="title_activity_events_page">EventsPage</string>
     <string name="view_my_events">View My Events</string>
     <string name="events_you_made">Events You\'ve Made</string>
+    <string name="Event_Picture">Event Picture</string>
 </resources>

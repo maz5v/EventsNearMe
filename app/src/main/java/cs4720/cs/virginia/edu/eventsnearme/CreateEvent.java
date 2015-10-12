@@ -2,6 +2,8 @@ package cs4720.cs.virginia.edu.eventsnearme;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ToggleButton;
+import android.os.Environment;
+import android.net.Uri;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -21,8 +30,16 @@ public class CreateEvent extends AppCompatActivity {
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
     public final static String EXTRA_TAG2 = "cs4720.cs.virginia.edu.eventsnearme.TAG2";
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
+    public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     private final String file = "eventDataFile";
+
+    File photoFile = null;
+
+    Uri photoURI = null;
+
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +109,9 @@ public class CreateEvent extends AppCompatActivity {
             finalString = finalString + " Tag 1: " + tag1;
             finalString = finalString + " Tag 2: " + tag2;
             finalString = finalString + " Tag 3: " + tag3;
+            if(photoFile != null)
+                finalString = finalString + " Image: " + photoURI.toString();
+            else finalString = finalString + " Image: NO_IMAGE";
             finalString = finalString + " ||| ";
             output.write(finalString.getBytes());
             Log.d("Error Checking: ", finalString);
@@ -100,6 +120,55 @@ public class CreateEvent extends AppCompatActivity {
             
         }
 
+        if (photoFile != null)
+            intent.putExtra(PHOTO_URI, photoURI.toString());
+        else intent.putExtra(PHOTO_URI, "NO_IMAGE");
         startActivity(intent);
+    }
+
+    public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                photoURI = Uri.parse(data.getStringExtra(MediaStore.EXTRA_OUTPUT));
+            }
+        }
     }
 }
