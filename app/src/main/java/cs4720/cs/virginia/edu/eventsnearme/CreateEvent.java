@@ -140,23 +140,23 @@ public class CreateEvent extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
-            /*try {
+            try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-
+                Log.i("IOException occurred: ", ex.getMessage());
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
-                Log.i("Error 1", "");
+                Log.i("Uri.fromFile gives: ", Uri.fromFile(photoFile).toString());
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }*/
+            }
 
-            File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
+            /*File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);*/
         }
     }
 
@@ -185,10 +185,13 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("requestCode: ", "" + requestCode);
+        Log.i("resultCode: ", "" + resultCode);
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.parse(data.getStringExtra(MediaStore.EXTRA_OUTPUT));
-                Log.i("Error 2", "");
+                Log.i("Uri.parse: ", photoURI.toString());
             }
         }
         else if (requestCode == REQUEST_PICK_PHOTO) {
