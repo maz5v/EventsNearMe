@@ -53,8 +53,8 @@
         android:layout_height="wrap_content"
         android:text="New ToggleButton"
         android:id="@+id/tag1"
-        android:textOff="Tag 1"
-        android:textOn="Tag 1"
+        android:textOff="@string/tag1"
+        android:textOn="@string/tag1"
         android:layout_marginTop="14dp"
         android:layout_below="@+id/textView10"
         android:layout_alignLeft="@+id/textView10"
@@ -68,8 +68,8 @@
         android:layout_alignTop="@+id/tag1"
         android:layout_alignLeft="@+id/textView9"
         android:layout_alignStart="@+id/textView9"
-        android:textOff="Tag 2"
-        android:textOn="Tag 2" />
+        android:textOff="@string/tag2"
+        android:textOn="@string/tag2" />
 
     <ToggleButton
         android:layout_width="wrap_content"
@@ -79,8 +79,8 @@
         android:layout_alignTop="@+id/tag2"
         android:layout_toRightOf="@+id/textView9"
         android:layout_toEndOf="@+id/textView9"
-        android:textOff="Tag 3"
-        android:textOn="Tag 3" />
+        android:textOff="@string/tag3"
+        android:textOn="@string/tag3" />
 
     <TextView
         android:layout_width="wrap_content"

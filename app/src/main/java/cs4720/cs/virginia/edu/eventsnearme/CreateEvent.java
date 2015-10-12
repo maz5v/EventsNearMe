@@ -88,21 +88,22 @@ public class CreateEvent extends AppCompatActivity {
         ToggleButton tagButton1 = (ToggleButton) findViewById(R.id.tag1);
         String tag1 = "";
         if(tagButton1.isChecked()) {
-            tag1 = tagButton1.getText().toString();
+            //tag1 = tagButton1.getText().toString();
+            tag1 = "tag1";
         }
         intent.putExtra(EXTRA_TAG1, tag1);
 
         ToggleButton tagButton2 = (ToggleButton) findViewById(R.id.tag2);
         String tag2 = "";
         if(tagButton2.isChecked()) {
-            tag2 = tagButton2.getText().toString();
+            tag2 = "tag2";
         }
         intent.putExtra(EXTRA_TAG2, tag2);
 
         ToggleButton tagButton3 = (ToggleButton) findViewById(R.id.tag3);
         String tag3 = "";
         if(tagButton3.isChecked()) {
-            tag3 = tagButton3.getText().toString();
+            tag3 = "tag3";
         }
         intent.putExtra(EXTRA_TAG3, tag3);
 
@@ -126,7 +127,7 @@ public class CreateEvent extends AppCompatActivity {
             Log.i("Exception writing file", e.getMessage());
         }
 
-        if (photoFile != null)
+        if (photoURI != null)
             intent.putExtra(PHOTO_URI, photoURI.toString());
         else intent.putExtra(PHOTO_URI, "NO_IMAGE");
         String ratingString = "" + rating;

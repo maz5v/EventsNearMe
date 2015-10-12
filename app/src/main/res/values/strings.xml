@@ -38,4 +38,7 @@
     <string name="view_my_events">View My Events</string>
     <string name="events_you_made">Events You\'ve Made</string>
     <string name="Event_Picture">Event Picture</string>
+    <string name="tag1">Food</string>
+    <string name="tag2">Entertainment</string>
+    <string name="tag3">Shopping</string>
 </resources>
