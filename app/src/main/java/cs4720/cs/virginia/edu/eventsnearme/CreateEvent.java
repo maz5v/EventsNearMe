@@ -186,6 +186,7 @@ public class CreateEvent extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
+                Log.i("Uri.fromFile: ", photoURI.toString());
             }
         }
         if (requestCode == REQUEST_PICK_PHOTO) {
