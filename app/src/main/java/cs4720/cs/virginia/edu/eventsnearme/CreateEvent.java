@@ -32,6 +32,7 @@ public class CreateEvent extends AppCompatActivity {
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
     static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_PICK_PHOTO = 2;
 
     private final String file = "eventDataFile";
 
@@ -146,6 +147,11 @@ public class CreateEvent extends AppCompatActivity {
         }
     }
 
+    public void dispatchPickPictureIntent(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_PICK_PHOTO);
+    }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -168,6 +174,11 @@ public class CreateEvent extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.parse(data.getStringExtra(MediaStore.EXTRA_OUTPUT));
+            }
+        }
+        else if (requestCode == REQUEST_PICK_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                photoURI = data.getData();
             }
         }
     }
