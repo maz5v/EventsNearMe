@@ -87,7 +87,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 7);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Description: ")-1;
                 listInput = temp.substring(0, index2);
                 tempTitles.add(listInput);
 
@@ -96,7 +96,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 13);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Tag 1: ")-1;
                 listInput = temp.substring(0, index2);
                 descriptions.add(listInput);
 
@@ -105,7 +105,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 7);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Tag 2: ")-1;
                 listInput = temp.substring(0, index2);
                 tag1s.add(listInput);
 
@@ -114,7 +114,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 7);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Tag 3: ")-1;
                 listInput = temp.substring(0, index2);
                 tag2s.add(listInput);
 
@@ -123,7 +123,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 7);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Image: ")-1;
                 listInput = temp.substring(0, index2);
                 tag3s.add(listInput);
 
@@ -132,7 +132,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 7);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Rating: ")-1;
                 listInput = temp.substring(0, index2);
                 images.add(listInput);
 
@@ -141,7 +141,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 8);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Latitude: ")-1;
                 listInput = temp.substring(0, index2);
                 ratings.add(listInput);
 
@@ -150,7 +150,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     break;
                 }
                 temp = temp.substring(index + 8);
-                index2 = temp.indexOf(" ");
+                index2 = temp.indexOf("Longitude: ")-1;
                 listInput = temp.substring(0, index2);
                 latitudes.add(listInput);
 
@@ -240,6 +240,12 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 16));
+        Random random = new Random();
+        for(int i = 0; i < titles.length; i++){
+            map.addMarker(new MarkerOptions()
+                    .position(new LatLng(mLastLocation.getLatitude() + random.nextDouble() * .06 - .06, mLastLocation.getLongitude() + random.nextDouble() * .06 - .06))
+                    .title(titles[i]));
+        }
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -299,11 +305,11 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
 
     @Override
     public void onMapReady(GoogleMap gMap) {
-        Random random = new Random();
+        /*Random random = new Random();
         for(int i = 0; i < titles.length; i++){
             map.addMarker(new MarkerOptions()
                     .position(new LatLng(mLastLocation.getLatitude() + random.nextDouble() * .06 - .06, mLastLocation.getLongitude() + random.nextDouble() * .06 - .06))
                     .title(titles[i]));
-        }
+        }*/
     }
 }
