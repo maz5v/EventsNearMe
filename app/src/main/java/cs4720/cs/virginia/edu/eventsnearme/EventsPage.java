@@ -52,7 +52,7 @@ public class EventsPage extends AppCompatActivity {
                     break;
                 }
                 temp = temp.substring(index + 7);
-                int index2 = temp.indexOf(" ");
+                int index2 = temp.indexOf("Description: ")-1;
                 String listInput = temp.substring(0, index2);
                 tempTitles.add(listInput);
             }
