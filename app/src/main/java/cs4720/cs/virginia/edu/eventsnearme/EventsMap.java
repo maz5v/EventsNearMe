@@ -1,6 +1,7 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
 import android.location.Location;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +12,20 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
-public class EventsMap extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
+public class EventsMap extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+//extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private TextView mLatitudeText;
     private TextView mLongitudeText;
+    private GoogleMap map;
 
     @Override
     protected void onStart() {
@@ -81,6 +89,15 @@ public class EventsMap extends AppCompatActivity implements GoogleApiClient.Conn
         }
         TextView coordinates = (TextView)findViewById(R.id.textView8);
         coordinates.setText("Your latitude is: " + mLatitudeText.getText() + "\n" + "Your longitude is: " + mLongitudeText.getText());
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        map = mapFragment.getMap();
+        Log.i("Map Check", map.toString());
+        map.setMyLocationEnabled(true);
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 13));
     }
 
     @Override
@@ -91,5 +108,10 @@ public class EventsMap extends AppCompatActivity implements GoogleApiClient.Conn
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.i("Finding Location", "Connection failed: ConnectionResult.getErrorCode() = " + connectionResult.getErrorCode());
+    }
+
+    @Override
+    public void onMapReady(GoogleMap gMap) {
+
     }
 }
