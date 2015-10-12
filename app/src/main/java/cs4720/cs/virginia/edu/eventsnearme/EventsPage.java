@@ -137,7 +137,7 @@ public class EventsPage extends AppCompatActivity {
             spaceIndex = temp.indexOf("Tag 2:");
             String tag1 = temp.substring(0, spaceIndex);
             if (tag1.length() > 1)
-                tag1 = "tag1";
+                tag1 = "Food";
             Log.i("Tag 1: ", tag1);
             intent.putExtra(EXTRA_TAG1, tag1);
 
@@ -146,7 +146,7 @@ public class EventsPage extends AppCompatActivity {
             spaceIndex = temp.indexOf("Tag 3:");
             String tag2 = temp.substring(0, spaceIndex);
             if (tag2.length() > 1)
-                tag2 = "tag2";
+                tag2 = "Entertainment";
             Log.i("Tag 2: ", tag2);
             intent.putExtra(EXTRA_TAG2, tag2);
 
@@ -155,7 +155,7 @@ public class EventsPage extends AppCompatActivity {
             spaceIndex = temp.indexOf(" Image:");
             String tag3 = temp.substring(0, spaceIndex);
             if (tag3.length() > 1)
-                tag3 = "tag3";
+                tag3 = "Shopping";
             Log.i("Tag 3: ", tag3);
             intent.putExtra(EXTRA_TAG3, tag3);
 

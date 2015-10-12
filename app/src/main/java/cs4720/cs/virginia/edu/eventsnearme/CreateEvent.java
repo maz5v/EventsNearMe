@@ -91,21 +91,21 @@ public class CreateEvent extends AppCompatActivity {
             //tag1 = tagButton1.getText().toString();
             tag1 = "tag1";
         }
-        intent.putExtra(EXTRA_TAG1, tag1);
+        intent.putExtra(EXTRA_TAG1, "Food");
 
         ToggleButton tagButton2 = (ToggleButton) findViewById(R.id.tag2);
         String tag2 = "";
         if(tagButton2.isChecked()) {
             tag2 = "tag2";
         }
-        intent.putExtra(EXTRA_TAG2, tag2);
+        intent.putExtra(EXTRA_TAG2, "Entertainment");
 
         ToggleButton tagButton3 = (ToggleButton) findViewById(R.id.tag3);
         String tag3 = "";
         if(tagButton3.isChecked()) {
             tag3 = "tag3";
         }
-        intent.putExtra(EXTRA_TAG3, tag3);
+        intent.putExtra(EXTRA_TAG3, "Shopping");
 
         try {
             FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
