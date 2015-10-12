@@ -123,7 +123,7 @@ public class CreateEvent extends AppCompatActivity {
             Log.d("Error Checking: ", finalString);
             output.close();
         } catch (Exception e) {
-            Log.i("Exception while writing to file", e.getMessage());
+            Log.i("Exception writing file", e.getMessage());
         }
 
         if (photoFile != null)
@@ -180,14 +180,17 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+        Log.i("requestCode: ", ""+requestCode);
+        Log.i("resultCode: ", ""+resultCode);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
             }
         }
-        else if (requestCode == REQUEST_PICK_PHOTO) {
+        if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
+                Log.i("data.getData: ", data.getDataString());
                 photoURI = data.getData();
             }
         }
