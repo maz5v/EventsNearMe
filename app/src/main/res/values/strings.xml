@@ -42,4 +42,6 @@
     <string name="tag2">Entertainment</string>
     <string name="tag3">Shopping</string>
     <string name="ClearFile">Clear File</string>
+    <string name="title_activity_select_on_map">Select On Map</string>
+    <string name="SelectEventLocationOnMap">Select Event Location On Map</string>
 </resources>
