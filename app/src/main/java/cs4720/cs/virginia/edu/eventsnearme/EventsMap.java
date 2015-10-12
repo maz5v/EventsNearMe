@@ -66,13 +66,6 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events_map);
-        buildGoogleApiClient();
 
         try {
             FileInputStream input = openFileInput("eventDataFile");
@@ -171,13 +164,6 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                 longitudes.add(listInput);
             }
 
-            //Just checking it worked
-            String tester = "";
-            for(int i = 0; i < tempTitles.size(); i++) {
-                tester = tester + tempTitles.get(i) + ", ";
-            }
-            Log.d("Test values: ", tester);
-
             titles = new String[tempTitles.size()];
             for(int i = 0; i < tempTitles.size(); i++) {
                 titles[i] = tempTitles.get(i);
@@ -186,6 +172,14 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_events_map);
+        buildGoogleApiClient();
+
     }
 
     @Override
