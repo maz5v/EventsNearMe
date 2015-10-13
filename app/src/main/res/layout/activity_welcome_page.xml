@@ -70,6 +70,14 @@
         android:layout_alignRight="@+id/button4"
         android:layout_alignEnd="@+id/button4" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fill File"
+        android:id="@+id/button11"
+        android:layout_below="@+id/button8"
+        android:layout_centerHorizontal="true"
+        android:onClick="fillNewsfeedFile"/>
 
 
 </RelativeLayout>

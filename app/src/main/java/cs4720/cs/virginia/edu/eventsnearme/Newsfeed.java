@@ -51,7 +51,7 @@ public class Newsfeed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //buildGoogleApiClient();
-        setContentView(R.layout.activity_events_page);
+        setContentView(R.layout.activity_newsfeed);
         try {
             FileInputStream input = openFileInput(file);
             int character;
@@ -105,51 +105,7 @@ public class Newsfeed extends AppCompatActivity {
         }
     }
 
-    public void fillNewsfeedFile(View view) {
-        try {
-            FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
-            String finalString = "";
-            String tag1="Food";
-            String tag2="";
-            String tag3="";
-            for (int i=0; i<10; i++) {
-                if (i == 3) {
-                    tag1 = "";
-                    tag2 = "Entertainment";
-                }
-                if (i == 7) {
-                    tag2 = "";
-                    tag3 = "Shopping";
-                }
-                finalString = finalString + "Title: Newsfeed Test Event " + i;
-                finalString = finalString + " Description: Test Description " + i;
-                finalString = finalString + " Tag 1: " + tag1;
-                finalString = finalString + " Tag 2: " + tag2;
-                finalString = finalString + " Tag 3: " + tag3;
-                /*if (photoURI != null)
-                    finalString = finalString + " Image: " + photoURI.toString();
-                else finalString = finalString + " Image: NO_IMAGE";*/
-                finalString = finalString + " Image: NO_IMAGE";
-                finalString = finalString + " Rating: 5";
-                Random random = new Random();
-                /*if (mLastLocation != null) {
-                    finalString = finalString + " Latitude: " + (mLastLocation.getLatitude() + random.nextDouble() * .06 - .06);
-                    finalString = finalString + " Longitude: " + (mLastLocation.getLongitude() + random.nextDouble() * .06 - .06);
-                } else {
-                    finalString = finalString + " Latitude: LAT_ERROR";
-                    finalString = finalString + " Longitude: LONG_ERROR";
-                }*/
-                finalString = finalString + " Latitude: " + (38.034506 + random.nextDouble() * .06 - .06);
-                finalString = finalString + " Longitude: " + (78.486474 + random.nextDouble() * .06 - .06);
-                finalString = finalString + " ||| ";
-                output.write(finalString.getBytes());
-            }
-            Log.d("Error Checking: ", finalString);
-            output.close();
-        } catch (Exception e) {
-            Log.i("Exception writing file", e.getMessage());
-        }
-    }
+
 
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
