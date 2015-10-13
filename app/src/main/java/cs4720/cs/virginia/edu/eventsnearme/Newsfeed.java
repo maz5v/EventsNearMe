@@ -63,6 +63,7 @@ public class Newsfeed extends AppCompatActivity {
             fileInfo = temp;
             Log.d("File info", fileInfo);
 
+            int count = 0;
             while(true) {
                 int index = temp.indexOf("Title: ");
                 if (index == -1) {
@@ -72,6 +73,7 @@ public class Newsfeed extends AppCompatActivity {
                 int index2 = temp.indexOf("Description: ")-1;
                 String listInput = temp.substring(0, index2);
                 tempTitles.add(listInput);
+                if (count == 7) break;
             }
 
             //Just checking it worked
