@@ -8,12 +8,15 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.os.Environment;
 import android.net.Uri;
@@ -107,14 +110,17 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
     public void shareEvent(View view) {
         Intent intent = new Intent(this, EventInfo.class);
+        Intent selectionIntent = new Intent(this, SelectOnMap.class);
 
         EditText titleText = (EditText) findViewById(R.id.title);
         String title = titleText.getText().toString();
         intent.putExtra(EXTRA_TITLE, title);
+        selectionIntent.putExtra(EXTRA_TITLE, title);
 
         EditText descriptionText = (EditText) findViewById(R.id.description);
         String description = descriptionText.getText().toString();
         intent.putExtra(EXTRA_DESCRIPTION, description);
+        selectionIntent.putExtra(EXTRA_DESCRIPTION, description);
 
         ToggleButton tagButton1 = (ToggleButton) findViewById(R.id.tag1);
         String tag1 = "";
@@ -123,6 +129,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             tag1 = "Food";
         }
         intent.putExtra(EXTRA_TAG1, tag1);
+        selectionIntent.putExtra(EXTRA_TAG1, tag1);
 
         ToggleButton tagButton2 = (ToggleButton) findViewById(R.id.tag2);
         String tag2 = "";
@@ -130,6 +137,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             tag2 = "Entertainment";
         }
         intent.putExtra(EXTRA_TAG2, tag2);
+        selectionIntent.putExtra(EXTRA_TAG2, tag2);
 
         ToggleButton tagButton3 = (ToggleButton) findViewById(R.id.tag3);
         String tag3 = "";
@@ -137,47 +145,76 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             tag3 = "Shopping";
         }
         intent.putExtra(EXTRA_TAG3, tag3);
+        selectionIntent.putExtra(EXTRA_TAG3, tag3);
 
-        try {
-            FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
-            String finalString = "";
-            finalString = finalString + "Title: " + title;
-            finalString = finalString + " Description: " + description;
-            finalString = finalString + " Tag 1: " + tag1;
-            finalString = finalString + " Tag 2: " + tag2;
-            finalString = finalString + " Tag 3: " + tag3;
-            if(photoURI != null)
-                finalString = finalString + " Image: " + photoURI.toString();
-            else finalString = finalString + " Image: NO_IMAGE";
-            finalString = finalString + " Rating: " + rating;
-            if (mLastLocation != null) {
-                finalString = finalString + " Latitude: " + String.valueOf(mLastLocation.getLatitude());
-                finalString = finalString + " Longitude: " + String.valueOf(mLastLocation.getLongitude());
-            }
-            else {
-                finalString = finalString + " Latitude: LAT_ERROR";
-                finalString = finalString + " Longitude: LONG_ERROR";
-            }
-            finalString = finalString + " ||| ";
-            output.write(finalString.getBytes());
-            Log.d("Error Checking: ", finalString);
-            output.close();
-        } catch (Exception e) {
-            Log.i("Exception writing file", e.getMessage());
+        if (photoURI != null) {
+            intent.putExtra(PHOTO_URI, photoURI.toString());
+            selectionIntent.putExtra(PHOTO_URI, photoURI.toString());
+        } else {
+            intent.putExtra(PHOTO_URI, "NO_IMAGE");
+            selectionIntent.putExtra(PHOTO_URI, "NO_IMAGE");
         }
 
-        if (photoURI != null)
-            intent.putExtra(PHOTO_URI, photoURI.toString());
-        else intent.putExtra(PHOTO_URI, "NO_IMAGE");
         String ratingString = "" + rating;
         intent.putExtra(EXTRA_RATING, ratingString);
+        selectionIntent.putExtra(EXTRA_RATING, ratingString);
 
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));
         }
 
-        startActivity(intent);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
+        int radioButtonId = radioGroup.getCheckedRadioButtonId();
+        if (radioButtonId == -1) {
+            //No button selected
+            Context context = getApplicationContext();
+            CharSequence text = "Please select a location option!";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+        }
+        else {
+            Log.i("Radio button ID: ", Integer.toString(radioButtonId));
+            if (radioButtonId == 2131558509) {
+                // Use current location
+                try {
+                    FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
+                    String finalString = "";
+                    finalString = finalString + "Title: " + title;
+                    finalString = finalString + " Description: " + description;
+                    finalString = finalString + " Tag 1: " + tag1;
+                    finalString = finalString + " Tag 2: " + tag2;
+                    finalString = finalString + " Tag 3: " + tag3;
+                    if(photoURI != null)
+                        finalString = finalString + " Image: " + photoURI.toString();
+                    else finalString = finalString + " Image: NO_IMAGE";
+                    finalString = finalString + " Rating: " + rating;
+                    if (mLastLocation != null) {
+                        finalString = finalString + " Latitude: " + String.valueOf(mLastLocation.getLatitude());
+                        finalString = finalString + " Longitude: " + String.valueOf(mLastLocation.getLongitude());
+                    }
+                    else {
+                        finalString = finalString + " Latitude: LAT_ERROR";
+                        finalString = finalString + " Longitude: LONG_ERROR";
+                    }
+                    finalString = finalString + " ||| ";
+                    output.write(finalString.getBytes());
+                    Log.d("Error Checking: ", finalString);
+                    output.close();
+                } catch (Exception e) {
+                    Log.i("Exception writing file", e.getMessage());
+                }
+                
+                startActivity(intent);
+            } else {
+                //Select on map
+                startActivity(selectionIntent);
+            }
+        }
+
     }
 
     public void dispatchTakePictureIntent(View view) {

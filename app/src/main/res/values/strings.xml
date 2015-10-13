@@ -44,4 +44,7 @@
     <string name="ClearFile">Clear File</string>
     <string name="title_activity_newsfeed">Newsfeed</string>
     <string name="newsfeed_title">Your Newsfeed</string>
+    <string name="title_activity_select_on_map">Select On Map</string>
+    <string name="SelectEventLocationOnMap">Select Event Location On Map</string>
+    <string name="Submit">Submit</string>
 </resources>
