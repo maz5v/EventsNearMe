@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
@@ -59,6 +60,11 @@ public class WelcomePage extends AppCompatActivity {
 
     public void goToEvents(View view) {
         Intent intent = new Intent(this, EventsPage.class);
+        startActivity(intent);
+    }
+
+    public void goToNewsfeed(View view) {
+        Intent intent = new Intent(this, Newsfeed.class);
         startActivity(intent);
     }
 

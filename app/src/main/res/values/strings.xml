@@ -42,4 +42,6 @@
     <string name="tag2">Entertainment</string>
     <string name="tag3">Shopping</string>
     <string name="ClearFile">Clear File</string>
+    <string name="title_activity_newsfeed">Newsfeed</string>
+    <string name="newsfeed_title">Your Newsfeed</string>
 </resources>
