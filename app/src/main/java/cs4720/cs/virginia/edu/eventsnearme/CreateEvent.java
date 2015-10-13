@@ -114,11 +114,25 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
         EditText titleText = (EditText) findViewById(R.id.title);
         String title = titleText.getText().toString();
+        if (title.equals("")) {
+            CharSequence text = "Please input a title!";
+            Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+            return;
+        }
         intent.putExtra(EXTRA_TITLE, title);
         selectionIntent.putExtra(EXTRA_TITLE, title);
 
         EditText descriptionText = (EditText) findViewById(R.id.description);
         String description = descriptionText.getText().toString();
+        if (description.equals("")) {
+            CharSequence text = "Please input a description!";
+            Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.TOP, 0, 0);
+            toast.show();
+            return;
+        }
         intent.putExtra(EXTRA_DESCRIPTION, description);
         selectionIntent.putExtra(EXTRA_DESCRIPTION, description);
 
@@ -219,16 +233,12 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
     public void dispatchTakePictureIntent(View view) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                // Error occurred while creating the File
                 Log.i("IOException occurred: ", ex.getMessage());
             }
-            // Continue only if the File was successfully created
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
@@ -243,7 +253,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     private File createImageFile() throws IOException {
-        // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(
@@ -254,7 +263,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
         return image;
     }
