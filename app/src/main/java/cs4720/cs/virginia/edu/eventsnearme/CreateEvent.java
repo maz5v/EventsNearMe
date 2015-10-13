@@ -147,34 +147,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         intent.putExtra(EXTRA_TAG3, tag3);
         selectionIntent.putExtra(EXTRA_TAG3, tag3);
 
-        try {
-            FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
-            String finalString = "";
-            finalString = finalString + "Title: " + title;
-            finalString = finalString + " Description: " + description;
-            finalString = finalString + " Tag 1: " + tag1;
-            finalString = finalString + " Tag 2: " + tag2;
-            finalString = finalString + " Tag 3: " + tag3;
-            if(photoURI != null)
-                finalString = finalString + " Image: " + photoURI.toString();
-            else finalString = finalString + " Image: NO_IMAGE";
-            finalString = finalString + " Rating: " + rating;
-            if (mLastLocation != null) {
-                finalString = finalString + " Latitude: " + String.valueOf(mLastLocation.getLatitude());
-                finalString = finalString + " Longitude: " + String.valueOf(mLastLocation.getLongitude());
-            }
-            else {
-                finalString = finalString + " Latitude: LAT_ERROR";
-                finalString = finalString + " Longitude: LONG_ERROR";
-            }
-            finalString = finalString + " ||| ";
-            output.write(finalString.getBytes());
-            Log.d("Error Checking: ", finalString);
-            output.close();
-        } catch (Exception e) {
-            Log.i("Exception writing file", e.getMessage());
-        }
-
         if (photoURI != null) {
             intent.putExtra(PHOTO_URI, photoURI.toString());
             selectionIntent.putExtra(PHOTO_URI, photoURI.toString());
@@ -208,8 +180,37 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             Log.i("Radio button ID: ", Integer.toString(radioButtonId));
             if (radioButtonId == 2131558509) {
                 // Use current location
+                try {
+                    FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
+                    String finalString = "";
+                    finalString = finalString + "Title: " + title;
+                    finalString = finalString + " Description: " + description;
+                    finalString = finalString + " Tag 1: " + tag1;
+                    finalString = finalString + " Tag 2: " + tag2;
+                    finalString = finalString + " Tag 3: " + tag3;
+                    if(photoURI != null)
+                        finalString = finalString + " Image: " + photoURI.toString();
+                    else finalString = finalString + " Image: NO_IMAGE";
+                    finalString = finalString + " Rating: " + rating;
+                    if (mLastLocation != null) {
+                        finalString = finalString + " Latitude: " + String.valueOf(mLastLocation.getLatitude());
+                        finalString = finalString + " Longitude: " + String.valueOf(mLastLocation.getLongitude());
+                    }
+                    else {
+                        finalString = finalString + " Latitude: LAT_ERROR";
+                        finalString = finalString + " Longitude: LONG_ERROR";
+                    }
+                    finalString = finalString + " ||| ";
+                    output.write(finalString.getBytes());
+                    Log.d("Error Checking: ", finalString);
+                    output.close();
+                } catch (Exception e) {
+                    Log.i("Exception writing file", e.getMessage());
+                }
+                
                 startActivity(intent);
             } else {
+                //Select on map
                 startActivity(selectionIntent);
             }
         }
