@@ -100,7 +100,7 @@ public class EventInfo extends AppCompatActivity {
             } else {
                 Log.d("reached here 2", "reached here 2");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
-                query.whereEqualTo("eventId", CreateEvent.EXTRA_EVENTID);
+                query.whereEqualTo("eventId", intent.getStringExtra(CreateEvent.EXTRA_EVENTID));
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objectList, ParseException e) {
