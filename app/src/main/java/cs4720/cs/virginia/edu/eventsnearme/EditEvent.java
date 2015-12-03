@@ -145,6 +145,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             }
             if (savedInstanceState.getByteArray("rotatePic") != null) {
                 photoString = savedInstanceState.getString("photoString");
+                myPhoto = photoString;
                 rotatePic = savedInstanceState.getByteArray("rotatePic");
                 imageFile = new ParseFile("image.webp", rotatePic);
                 imageFile.saveInBackground();
@@ -249,6 +250,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
                 photoString = photoURI.toString();
+                myPhoto = photoString;
                 //Bundle extras = data.getExtras();
                 //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
@@ -270,6 +272,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
                 photoString = photoURI.toString();
+                myPhoto = photoString;
                 //Bundle extras = data.getExtras();
                 //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
