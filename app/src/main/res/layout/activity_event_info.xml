@@ -66,8 +66,8 @@
     <LinearLayout
         android:id="@+id/ratingBlock"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tags"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp" >
@@ -101,20 +101,25 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/eventPicture"
-        android:layout_above="@+id/returnHome"
-        android:layout_below="@id/ratingBlock"
-        android:layout_centerHorizontal="true"
-        android:cropToPadding="false"
-        android:adjustViewBounds="true"
-        android:maxHeight="100dp"
-        android:contentDescription="@string/Event_Picture" />
-
     <!---->
     <!--android:layout_marginTop="100dp"-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/returnHome"
+        android:layout_below="@id/ratingBlock"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventPicture"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/Event_Picture" />
+    </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
