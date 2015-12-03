@@ -32,6 +32,9 @@ import java.util.Random;
 public class WelcomePage extends AppCompatActivity
         implements LogInDialogFragment.LoginDialogListener, RegisterUserDialogFragment.RegisterUserDialogListener {
 
+    public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
+    public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+
     private final String file = "eventDataFile";
     private boolean loggedIn = false;
     private String userName = "";
@@ -116,6 +119,22 @@ public class WelcomePage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
+
+        Intent intent = getIntent();
+
+        userName = "lainfiafnvfavnvadfv6i76ju";
+
+        Log.i("Welcome user BEFORE", userName);
+        Log.i("Welcome logged BEFORE", "" + loggedIn);
+
+        if (intent.getStringExtra(EventInfo.EXTRA_USERNAME) != null) {
+            userName = intent.getStringExtra(EventInfo.EXTRA_USERNAME);
+            loggedIn = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
+        }
+
+        Log.i("Welcome user AFTER", userName);
+        Log.i("Welcome logged AFTER", "" + loggedIn);
+
     }
 
     @Override
@@ -156,16 +175,22 @@ public class WelcomePage extends AppCompatActivity
 
     public void findSomethingNearMe(View view) {
         Intent intent = new Intent(this, EventsMap.class);
+        intent.putExtra(EXTRA_LOGGED, loggedIn);
+        intent.putExtra(EXTRA_USERNAME, userName);
         startActivity(intent);
     }
 
     public void shareAnEvent(View view) {
         Intent intent = new Intent(this, CreateEvent.class);
+        intent.putExtra(EXTRA_LOGGED, loggedIn);
+        intent.putExtra(EXTRA_USERNAME, userName);
         startActivity(intent);
     }
 
     public void goToEvents(View view) {
         Intent intent = new Intent(this, EventsPage.class);
+        intent.putExtra(EXTRA_LOGGED, loggedIn);
+        intent.putExtra(EXTRA_USERNAME, userName);
         startActivity(intent);
     }
 

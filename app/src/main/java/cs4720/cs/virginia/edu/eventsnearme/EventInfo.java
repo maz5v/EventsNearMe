@@ -5,6 +5,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,8 @@ public class EventInfo extends AppCompatActivity {
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
     public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
+    public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
+    public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
 
     private String myTag1 = "";
     private String myTag2 = "";
@@ -31,6 +34,8 @@ public class EventInfo extends AppCompatActivity {
     private String myLong = "";
     private String myPhoto = "";
     private String myId = "";
+    private String user;
+    private boolean logged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,9 @@ public class EventInfo extends AppCompatActivity {
 
         String id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
         myId = id;
+
+        logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
+        user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
     }
 
     @Override
@@ -112,6 +120,10 @@ public class EventInfo extends AppCompatActivity {
 
     public void returnHome(View view) {
         Intent intent = new Intent(this, WelcomePage.class);
+        intent.putExtra(EXTRA_USERNAME, user);
+        intent.putExtra(EXTRA_LOGGED, logged);
+        Log.i("My user", user);
+        Log.i("Logged IN", ""+logged);
         startActivity(intent);
     }
 

@@ -50,6 +50,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
     public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
+    public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
+    public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
 
@@ -59,6 +62,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     String mCurrentPhotoPath;
     public int rating = 5;
 
+    private String userName;
+    private boolean loggedIn;
+
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
 
@@ -67,6 +73,15 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         super.onCreate(savedInstanceState);
         buildGoogleApiClient();
         setContentView(R.layout.activity_create_event);
+
+        Intent intent = getIntent();
+
+        userName = intent.getStringExtra(WelcomePage.EXTRA_USERNAME);
+        loggedIn = intent.getBooleanExtra(WelcomePage.EXTRA_LOGGED, false);
+
+        Log.i("Username", userName);
+        Log.i("Boolean value", ""+loggedIn);
+
     }
 
     @Override
@@ -184,6 +199,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         intent.putExtra(EXTRA_RATING, ratingString);
         selectionIntent.putExtra(EXTRA_RATING, ratingString);
 
+        intent.putExtra(EXTRA_USERNAME, userName);
+        intent.putExtra(EXTRA_LOGGED, loggedIn);
+
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));
@@ -244,6 +262,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 eventObject.put("tag1", tag1);
                 eventObject.put("tag2", tag2);
                 eventObject.put("tag3", tag3);
+                eventObject.put("userName", userName);
                 eventObject.saveInBackground();
                 // Stop PARSE stuff
 
