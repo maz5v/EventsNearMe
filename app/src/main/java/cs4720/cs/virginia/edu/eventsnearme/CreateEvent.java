@@ -338,7 +338,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 75, stream);
                     byte[] imageData = stream.toByteArray();
                     Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.png", imageData);
@@ -357,7 +357,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 75, stream);
 
                     byte[] imageData = stream.toByteArray();
                     Log.d("image size", ""+imageData.length);
