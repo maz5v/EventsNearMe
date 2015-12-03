@@ -123,6 +123,7 @@ public class EventsPage extends AppCompatActivity {
         ///////////////
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
+        query.whereEqualTo("userName", user);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objectList, ParseException e) {

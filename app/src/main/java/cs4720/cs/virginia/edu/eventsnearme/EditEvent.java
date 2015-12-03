@@ -175,11 +175,11 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     public void updateEvent(View view) {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
-        query.whereEqualTo("title", myTitle);
-        Log.i("The title", myTitle);
-        Log.i("The title length", ""+myTitle.length());
-        String temppp = "testing space ";
-        Log.i("The title", "" + temppp.length());
+        query.whereEqualTo("eventId", id);
+        //Log.i("The title", myTitle);
+        //Log.i("The title length", ""+myTitle.length());
+        //String temppp = "testing space ";
+        //Log.i("The title", "" + temppp.length());
 
         Intent intent = new Intent(this, EventInfo.class);
         Intent selectionIntent = new Intent(this, EditOnMap.class);
