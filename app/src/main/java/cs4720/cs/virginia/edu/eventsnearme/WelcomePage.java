@@ -93,6 +93,12 @@ public class WelcomePage extends AppCompatActivity
                             toast.setGravity(Gravity.TOP, 0, 0);
                             toast.show();
                         } else {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Welcome back, " + finalUser + "!";
+                            int duration = Toast.LENGTH_LONG;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.TOP, 0, 0);
+                            toast.show();
                             userName = finalUser;
                             loggedIn = true;
                             findViewById(R.id.button3).setVisibility(View.VISIBLE);
@@ -128,6 +134,7 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.button4).setVisibility(View.INVISIBLE);
         findViewById(R.id.button8).setVisibility(View.INVISIBLE);
         findViewById(R.id.button11).setVisibility(View.INVISIBLE);
+        findViewById(R.id.logoutButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.VISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.VISIBLE);
     }
