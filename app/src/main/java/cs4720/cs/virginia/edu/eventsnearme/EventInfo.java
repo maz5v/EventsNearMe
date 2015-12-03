@@ -113,6 +113,7 @@ public class EventInfo extends AppCompatActivity {
                                             // data has the bytes for the resume
                                             Bitmap bmpNew = BitmapFactory.decodeByteArray(data, 0, data.length);
                                             eventImage.setImageBitmap(bmpNew);
+                                            eventImage.draw();
                                         } else {
                                             // something went wrong
                                         }
