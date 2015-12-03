@@ -1,6 +1,5 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -10,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +16,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -371,7 +363,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         intent.putExtra(EXTRA_SENDER, "EditEvent");
         selectionIntent.putExtra(EXTRA_SENDER, "EditEvent");
 
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         Log.i("Radio Button ID", "" + radioButtonId);
         if (radioButtonId == -1) {
@@ -445,7 +437,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             }
             startActivity(intent);
 
-        } else if (radioButtonId == 2131558555) {
+        } else if (radioButtonId == 2131558540) {
             // Use current location
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLongitude()));

@@ -139,7 +139,7 @@ public class EventInfo extends AppCompatActivity {
         if (lat == null) {
             Log.i("Still null", "Fuck");
         }
-        Log.i("My latitude 2", lat);
+        // Log.i("My latitude 2", lat);
         myLat = lat;
 
         String lon = intent.getStringExtra(EventsMap.EXTRA_LONG);

@@ -13,8 +13,8 @@
             android:text="@string/add_image_from_gallery"
             android:id="@+id/button12"
             android:layout_below="@+id/tag1"
-            android:layout_alignLeft="@+id/radioGroup3"
-            android:layout_alignStart="@+id/radioGroup3"
+            android:layout_alignLeft="@+id/radioGroup2"
+            android:layout_alignStart="@+id/radioGroup2"
             android:layout_marginTop="66dp"
             android:onClick="dispatchPickPictureIntent" />
 
@@ -70,7 +70,7 @@
             android:layout_alignStart="@+id/tag1"
             android:layout_below="@+id/textView18"
             android:layout_above="@+id/button13"
-            android:id="@+id/radioGroup3" >
+            android:id="@+id/radioGroup2" >
 
             <RadioButton
                 android:layout_width="wrap_content"
