@@ -56,6 +56,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
     public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
+    public final static String EXTRA_PHOTOARRAY = "cs4720.cs.virginia.edu.eventsnearme.PHOTOARRAY";
 
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
@@ -250,6 +251,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));
         }
+
+        intent.putExtra(EXTRA_PHOTOARRAY, rotatePic);
+        selectionIntent.putExtra(EXTRA_PHOTOARRAY, rotatePic);
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
