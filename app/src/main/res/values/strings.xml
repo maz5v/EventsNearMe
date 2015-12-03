@@ -53,4 +53,5 @@
     <string name="edit_image">Select an option below if you wish to update your current image (optional)</string>
     <string name="update_location">Update Location (only select if an update is needed)</string>
     <string name="use_my_current_location">Use my current location</string>
+    <string name="title_activity_edit_on_map">EditOnMap</string>
 </resources>
