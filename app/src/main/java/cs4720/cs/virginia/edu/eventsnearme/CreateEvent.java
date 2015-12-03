@@ -341,7 +341,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                     imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
                     byte[] imageData = stream.toByteArray();
                     Log.d("image size", ""+imageData.length);
-                    imageFile = new ParseFile("image.png", imageData);
+                    imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
 
@@ -361,7 +361,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
                     byte[] imageData = stream.toByteArray();
                     Log.d("image size", ""+imageData.length);
-                    imageFile = new ParseFile("image.png", imageData);
+                    imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
 
