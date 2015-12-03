@@ -66,7 +66,7 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.button3).setVisibility(View.VISIBLE);
         findViewById(R.id.button4).setVisibility(View.VISIBLE);
         findViewById(R.id.button8).setVisibility(View.VISIBLE);
-        findViewById(R.id.button11).setVisibility(View.VISIBLE);
+        //findViewById(R.id.button11).setVisibility(View.VISIBLE);
         findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -104,7 +104,7 @@ public class WelcomePage extends AppCompatActivity
                             findViewById(R.id.button3).setVisibility(View.VISIBLE);
                             findViewById(R.id.button4).setVisibility(View.VISIBLE);
                             findViewById(R.id.button8).setVisibility(View.VISIBLE);
-                            findViewById(R.id.button11).setVisibility(View.VISIBLE);
+                            //findViewById(R.id.button11).setVisibility(View.VISIBLE);
                             findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
                             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
                             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -120,7 +120,7 @@ public class WelcomePage extends AppCompatActivity
             findViewById(R.id.button3).setVisibility(View.VISIBLE);
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
             findViewById(R.id.button8).setVisibility(View.VISIBLE);
-            findViewById(R.id.button11).setVisibility(View.VISIBLE);
+            //findViewById(R.id.button11).setVisibility(View.VISIBLE);
             findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -133,7 +133,7 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.button3).setVisibility(View.INVISIBLE);
         findViewById(R.id.button4).setVisibility(View.INVISIBLE);
         findViewById(R.id.button8).setVisibility(View.INVISIBLE);
-        findViewById(R.id.button11).setVisibility(View.INVISIBLE);
+        //findViewById(R.id.button11).setVisibility(View.INVISIBLE);
         findViewById(R.id.logoutButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.VISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.VISIBLE);
