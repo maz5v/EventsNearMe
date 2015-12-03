@@ -159,9 +159,13 @@ public class WelcomePage extends AppCompatActivity
         Log.i("Welcome user BEFORE", userName);
         Log.i("Welcome logged BEFORE", "" + loggedIn);
 
-        if (intent.getStringExtra(EventInfo.EXTRA_USERNAME) != null) {
+        if (loggedIn) {
+            login();
+        }
+        else if (intent.getStringExtra(EventInfo.EXTRA_USERNAME) != null) {
             userName = intent.getStringExtra(EventInfo.EXTRA_USERNAME);
             loggedIn = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
+            login();
         }
 
 
