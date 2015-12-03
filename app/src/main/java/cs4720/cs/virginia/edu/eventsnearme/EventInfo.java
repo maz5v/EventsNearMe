@@ -87,15 +87,18 @@ public class EventInfo extends AppCompatActivity {
         final ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
         String sender = intent.getStringExtra(CreateEvent.EXTRA_SENDER);
         if (sender.equals("CreateEvent")) {
+            Log.d("reached here", "reached here");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else eventImage.setImageURI(Uri.parse(imageURIString));
         } else if (sender.equals("EventsMap") || sender.equals("EventsPage")) {
+            Log.d("reached here 1", "reached here 1");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else {
+                Log.d("reached here 2", "reached here 2");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
                 query.whereEqualTo("eventId", CreateEvent.EXTRA_EVENTID);
                 query.findInBackground(new FindCallback<ParseObject>() {
