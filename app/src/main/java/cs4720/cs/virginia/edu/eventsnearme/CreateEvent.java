@@ -88,7 +88,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         loggedIn = intent.getBooleanExtra(WelcomePage.EXTRA_LOGGED, false);
 
         Log.i("Username", userName);
-        Log.i("Boolean value", ""+loggedIn);
+        Log.i("Boolean value", "" + loggedIn);
 
     }
 
@@ -333,30 +333,38 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] imageData = stream.toByteArray();
+                //Bundle extras = data.getExtras();
+                //Bitmap imageBitmap = (Bitmap) extras.get("data");
+                try {
+                    Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] imageData = stream.toByteArray();
 
-                imageFile = new ParseFile("image.png", imageData);
-                imageFile.saveInBackground();
+                    imageFile = new ParseFile("image.png", imageData);
+                    imageFile.saveInBackground();
+                } catch (IOException e) {
+
+                }
 
             }
         }
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] imageData = stream.toByteArray();
+                //Bundle extras = data.getExtras();
+                //Bitmap imageBitmap = (Bitmap) extras.get("data");
+                try {
+                    Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] imageData = stream.toByteArray();
 
-                imageFile = new ParseFile("image.png", imageData);
-                imageFile.saveInBackground();
-                Log.i("path", photoURI.getPath());
-                Log.i("path2", photoURI.getEncodedPath());
+                    imageFile = new ParseFile("image.png", imageData);
+                    imageFile.saveInBackground();
+                } catch (IOException e) {
+
+                }
             }
         }
     }
