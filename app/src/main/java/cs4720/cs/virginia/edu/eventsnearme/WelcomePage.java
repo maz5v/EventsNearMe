@@ -13,12 +13,20 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
 import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Random;
 
 public class WelcomePage extends AppCompatActivity
@@ -26,10 +34,11 @@ public class WelcomePage extends AppCompatActivity
 
     private final String file = "eventDataFile";
     private boolean loggedIn = false;
+    private String userName = "";
 
     @Override
     public void onLoginDialogPositiveClick(DialogFragment dialog, String username, String password) {
-
+        login(username, false, password);
     }
 
     /*
@@ -45,6 +54,54 @@ public class WelcomePage extends AppCompatActivity
         reg.put("username", username);
         reg.put("password", password);
         reg.saveInBackground();
+        login(username, true, "");
+    }
+
+    public void login(String user, boolean registering, String password) {
+        final String finalUser = user;
+        if (!registering) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseUserCLass");
+            query.whereEqualTo("username", user);
+            query.whereEqualTo("password", password);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objectList, ParseException e) {
+                    if (e == null) {
+                        //create toast login failed message
+                        Log.d("login failed,", "login failed");
+                    } else {
+                        userName = finalUser;
+                        loggedIn = true;
+                        findViewById(R.id.button3).setVisibility(View.VISIBLE);
+                        findViewById(R.id.button4).setVisibility(View.VISIBLE);
+                        findViewById(R.id.button8).setVisibility(View.VISIBLE);
+                        findViewById(R.id.button11).setVisibility(View.VISIBLE);
+                        findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        } else {
+            userName = user;
+            loggedIn = true;
+            findViewById(R.id.button3).setVisibility(View.VISIBLE);
+            findViewById(R.id.button4).setVisibility(View.VISIBLE);
+            findViewById(R.id.button8).setVisibility(View.VISIBLE);
+            findViewById(R.id.button11).setVisibility(View.VISIBLE);
+            findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
+            findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void logout(String user) {
+        userName = "";
+        loggedIn = false;
+        findViewById(R.id.button3).setVisibility(View.INVISIBLE);
+        findViewById(R.id.button4).setVisibility(View.INVISIBLE);
+        findViewById(R.id.button8).setVisibility(View.INVISIBLE);
+        findViewById(R.id.button11).setVisibility(View.INVISIBLE);
+        findViewById(R.id.loginButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.registerButton).setVisibility(View.VISIBLE);
     }
 
     @Override
