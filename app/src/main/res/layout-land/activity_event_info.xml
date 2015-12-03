@@ -63,16 +63,23 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/imageFrame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eventPicture"
+        android:layout_gravity="center_horizontal"
         android:layout_above="@+id/returnHome"
         android:layout_below="@id/textView12"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="150dp"
-        android:layout_marginRight="180dp"
-        android:contentDescription="@string/Event_Picture" />
+        android:layout_centerHorizontal="true" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventPicture"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/Event_Picture" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -80,8 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tags"
-        android:layout_toRightOf="@+id/eventPicture"
-        android:layout_toEndOf="@+id/eventPicture"
+        android:layout_toRightOf="@+id/imageFrame"
+        android:layout_toEndOf="@+id/imageFrame"
         android:layout_marginLeft="26dp"
         android:layout_marginStart="26dp">
 
