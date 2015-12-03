@@ -63,6 +63,16 @@
         android:layout_marginBottom="82dp"
         android:onClick="returnHome" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/eventRatingInfo"
+        android:layout_below="@+id/tags"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="96dp" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -106,8 +116,11 @@
         android:layout_above="@+id/returnHome"
         android:layout_below="@id/eventRatingInfo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+
+        android:adjustViewBounds="true"
         android:contentDescription="@string/Event_Picture" />
+
+    <!--android:layout_marginTop="100dp"-->
 
     <Button
         android:layout_width="wrap_content"
