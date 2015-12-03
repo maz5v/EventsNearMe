@@ -65,6 +65,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     Uri photoURI = null;
     String mCurrentPhotoPath;
     public int rating = 5;
+    private boolean rated = false;
 
     private String userName;
     private boolean loggedIn;
@@ -91,6 +92,16 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         Log.i("Username", userName);
         Log.i("Boolean value", "" + loggedIn);
 
+        if (savedInstanceState != null) {
+            TextView ratingView = (TextView)findViewById(R.id.eventRating);
+            String temp = ratingView.getText().toString();
+            if (savedInstanceState.getBoolean("rated")) {
+                rating = savedInstanceState.getInt("rating");
+                rated = savedInstanceState.getBoolean("rated");
+                ratingView.setText("" + rating);
+            }
+        }
+
     }
 
     @Override
@@ -113,6 +124,13 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+        outState.putInt("rating", rating);
+        outState.putBoolean("rated", rated);
     }
 
     @Override
@@ -212,6 +230,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         selectionIntent.putExtra(EXTRA_USERNAME, userName);
         intent.putExtra(EXTRA_LOGGED, loggedIn);
         selectionIntent.putExtra(EXTRA_LOGGED, loggedIn);
+        intent.putExtra(EXTRA_SENDER, "CreateEvent");
         selectionIntent.putExtra(EXTRA_SENDER, "CreateEvent");
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
@@ -372,6 +391,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     public void upVote(View view) {
+        rated = true;
         if(rating == 10) return;
         rating++;
         TextView ratingView = (TextView) findViewById(R.id.eventRating);
@@ -379,6 +399,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     public void downVote(View view) {
+        rated = true;
         if (rating == 1) return;
         rating--;
         TextView ratingView = (TextView) findViewById(R.id.eventRating);

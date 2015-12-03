@@ -136,18 +136,27 @@ public class EventInfo extends AppCompatActivity {
         String photo = intent.getStringExtra(CreateEvent.PHOTO_URI);
         myPhoto = photo;
 
-        String rating2 = intent.getStringExtra(CreateEvent.EXTRA_RATING);
-        TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
-        eventRating.setText("" + rating2);
-
         String id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
         myId = id;
 
         logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
         user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
 
-        rating = Integer.parseInt(rating2);
-        initialRating = Integer.parseInt(rating2);
+        if (savedInstanceState != null) {
+            TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
+            eventRating.setText("" + savedInstanceState.getInt("rating"));
+
+            rating = savedInstanceState.getInt("rating");
+            initialRating = savedInstanceState.getInt("initialRating");
+        } else {
+            String rating2 = intent.getStringExtra(CreateEvent.EXTRA_RATING);
+            TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
+            eventRating.setText("" + rating2);
+
+            rating = Integer.parseInt(rating2);
+            initialRating = Integer.parseInt(rating2);
+        }
+
     }
 
     @Override
@@ -179,6 +188,13 @@ public class EventInfo extends AppCompatActivity {
             });
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("rating", rating);
+        outState.putInt("initialRating", initialRating);
     }
 
     @Override
