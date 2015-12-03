@@ -13,6 +13,23 @@ import android.widget.TextView;
 
 public class EventInfo extends AppCompatActivity {
 
+    public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
+    public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
+    public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
+    public final static String EXTRA_TAG2 = "cs4720.cs.virginia.edu.eventsnearme.TAG2";
+    public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
+    public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
+    public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
+    public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
+    public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
+
+    private String myTag1 = "";
+    private String myTag2 = "";
+    private String myTag3 = "";
+    private String myLat = "";
+    private String myLong = "";
+    private String myPhoto = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +48,9 @@ public class EventInfo extends AppCompatActivity {
         String tag1 = intent.getStringExtra(CreateEvent.EXTRA_TAG1);
         String tag2 = intent.getStringExtra(CreateEvent.EXTRA_TAG2);
         String tag3 = intent.getStringExtra(CreateEvent.EXTRA_TAG3);
+        myTag1 = tag1;
+        myTag2 = tag2;
+        myTag3 = tag3;
         String tag = "Selected tags: ";
         if(tag1.length() > 0) {
             tag = tag + '\n' + tag1;
@@ -51,6 +71,12 @@ public class EventInfo extends AppCompatActivity {
         }
         else eventImage.setImageURI(Uri.parse(imageURIString));
 
+        String lat = intent.getStringExtra(CreateEvent.EXTRA_LAT);
+        myLat = lat;
+        String lon = intent.getStringExtra(CreateEvent.EXTRA_LONG);
+        myLong = lon;
+        String photo = intent.getStringExtra(CreateEvent.PHOTO_URI);
+        myPhoto = photo;
 
         String rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
@@ -81,6 +107,34 @@ public class EventInfo extends AppCompatActivity {
 
     public void returnHome(View view) {
         Intent intent = new Intent(this, WelcomePage.class);
+        startActivity(intent);
+    }
+
+    public void editEvent(View view) {
+        Intent intent = new Intent(this, EditEvent.class);
+
+        TextView titleText = (TextView)findViewById(R.id.title);
+        String title = titleText.getText().toString();
+        title = title.substring(7);
+        intent.putExtra(EXTRA_TITLE, title);
+
+        TextView descriptionText = (TextView)findViewById(R.id.description);
+        String description = descriptionText.getText().toString();
+        description = description.substring(13);
+        intent.putExtra(EXTRA_DESCRIPTION, description);
+
+        TextView ratingText = (TextView)findViewById(R.id.eventRatingInfo);
+        String rating = ratingText.getText().toString();
+        rating = rating.substring(8);
+        intent.putExtra(EXTRA_RATING, rating);
+
+        intent.putExtra(EXTRA_TAG1, myTag1);
+        intent.putExtra(EXTRA_TAG2, myTag2);
+        intent.putExtra(EXTRA_TAG3, myTag3);
+        intent.putExtra(EXTRA_LAT, myLat);
+        intent.putExtra(EXTRA_LONG, myLong);
+        intent.putExtra(PHOTO_URI, myPhoto);
+
         startActivity(intent);
     }
 

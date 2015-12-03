@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.parse.Parse;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

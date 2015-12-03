@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseObject;
 
 import java.io.FileOutputStream;
 import java.util.Random;
@@ -48,6 +49,9 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private String tag3;
     private String photoURI;
     private String rating;
+
+    private String dbLat;
+    private String dbLong;
 
     private Intent intent;
 
@@ -183,6 +187,10 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
                     finalString = finalString + " Image: " + photoURI;
                 else finalString = finalString + " Image: NO_IMAGE";
                 finalString = finalString + " Rating: " + rating;
+                Log.i("Marker lat: ", String.valueOf(marker.getPosition().latitude));
+                Log.i("Marker lng: ", String.valueOf(marker.getPosition().longitude));
+                dbLat = String.valueOf(marker.getPosition().latitude);
+                dbLong = String.valueOf(marker.getPosition().longitude);
                 finalString = finalString + " Latitude: " + String.valueOf(marker.getPosition().latitude);
                 finalString = finalString + " Longitude: " + String.valueOf(marker.getPosition().longitude);
                 finalString = finalString + " ||| ";
@@ -194,6 +202,20 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
             }
 
             intent.setClass(this, EventInfo.class);
+
+            // Start PARSE stuff
+            ParseClass eventObject = new ParseClass();
+            eventObject.put("title", title);
+            eventObject.put("description", description);
+            eventObject.put("latitude", dbLat);
+            eventObject.put("longitude", dbLong);
+            eventObject.put("rating", Integer.parseInt(rating));
+            eventObject.put("tag1", tag1);
+            eventObject.put("tag2", tag2);
+            eventObject.put("tag3", tag3);
+            eventObject.saveInBackground();
+            // Stop PARSE stuff
+
             startActivity(intent);
         }
     }

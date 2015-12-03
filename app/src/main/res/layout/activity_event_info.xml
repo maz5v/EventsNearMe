@@ -83,4 +83,14 @@
         android:layout_marginTop="100dp"
         android:contentDescription="@string/Event_Picture" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_event"
+        android:id="@+id/button10"
+        android:layout_marginBottom="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="editEvent" />
+
 </RelativeLayout>

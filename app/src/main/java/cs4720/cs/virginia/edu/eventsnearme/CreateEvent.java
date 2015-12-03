@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 
 public class CreateEvent extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
@@ -192,7 +194,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         }
         else {
             Log.i("Radio button ID: ", Integer.toString(radioButtonId));
-            if (radioButtonId == 2131558509) {
+            if (radioButtonId == 2131558540) {
                 // Use current location
                 try {
                     FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
@@ -221,7 +223,20 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 } catch (Exception e) {
                     Log.i("Exception writing file", e.getMessage());
                 }
-                
+
+                // Start PARSE stuff
+                ParseClass eventObject = new ParseClass();
+                eventObject.put("title", title);
+                eventObject.put("description", description);
+                eventObject.put("latitude", String.valueOf(mLastLocation.getLatitude()));
+                eventObject.put("longitude", String.valueOf(mLastLocation.getLongitude()));
+                eventObject.put("rating", rating);
+                eventObject.put("tag1", tag1);
+                eventObject.put("tag2", tag2);
+                eventObject.put("tag3", tag3);
+                eventObject.saveInBackground();
+                // Stop PARSE stuff
+
                 startActivity(intent);
             } else {
                 //Select on map

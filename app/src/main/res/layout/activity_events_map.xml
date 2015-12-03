@@ -20,72 +20,12 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp" />
 
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
-        android:textOff="Tag 1"
-        android:textOn="Tag 1" />
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton2"
-        android:layout_alignBottom="@+id/toggleButton"
-        android:layout_toRightOf="@+id/textView7"
-        android:layout_toEndOf="@+id/textView7"
-        android:textOff="Tag 2"
-        android:textOn="Tag 2" />
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton3"
-        android:layout_alignBottom="@+id/toggleButton2"
-        android:layout_toRightOf="@+id/toggleButton2"
-        android:layout_toEndOf="@+id/toggleButton2"
-        android:layout_marginLeft="41dp"
-        android:layout_marginStart="41dp"
-        android:textOff="Tag 3"
-        android:textOn="Tag 3" />
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton4"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="150dp"
-        android:textOff="Tag 4"
-        android:textOn="Tag 4" />
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton5"
-        android:layout_alignBottom="@+id/toggleButton4"
-        android:layout_alignLeft="@+id/toggleButton2"
-        android:layout_alignStart="@+id/toggleButton2"
-        android:textOff="Tag 5"
-        android:textOn="Tag 5" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/EmptyText"
         android:id="@+id/textView8"
-        android:layout_below="@+id/toggleButton4"
-        android:layout_alignLeft="@+id/toggleButton4"
-        android:layout_alignStart="@+id/toggleButton4"
         android:layout_marginTop="49dp" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -93,10 +33,7 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toEndOf="@+id/toggleButton5"
-        android:layout_toRightOf="@+id/toggleButton5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView8" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

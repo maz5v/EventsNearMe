@@ -52,32 +52,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/visit_newsfeed"
-        android:id="@+id/button5"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:onClick="goToNewsfeed"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/view_my_events"
         android:id="@+id/button8"
         android:layout_marginTop="17dp"
         android:onClick="goToEvents"
-        android:layout_below="@+id/button5"
         android:layout_alignRight="@+id/button4"
-        android:layout_alignEnd="@+id/button4" />
+        android:layout_alignEnd="@+id/button4"
+        android:layout_below="@+id/button4" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fill File"
+        android:text="Clear ALl My Events"
         android:id="@+id/button11"
-        android:layout_below="@+id/button8"
+        android:onClick="clearFile"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="fillNewsfeedFile"/>
+        android:layout_marginBottom="108dp" />
 
 
 </RelativeLayout>
