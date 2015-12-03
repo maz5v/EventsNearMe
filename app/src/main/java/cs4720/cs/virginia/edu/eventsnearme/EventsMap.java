@@ -51,6 +51,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
     public final static String EXTRA_LONGITUDE = "cs4720.cs.virginia.edu.eventsnearme.LONGITUDE";
     public final static String EXTRA_LATITUDE = "cs4720.cs.virginia.edu.eventsnearme.LATITUDE";
+    public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
+    public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -80,6 +82,9 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     private ArrayList<String> tag3s1 = new ArrayList<>();
     private ArrayList<String> images1 = new ArrayList<>();
     private ArrayList<String> ratings1 = new ArrayList<>();
+
+    private String user;
+    private boolean logged = false;
 
     private boolean loading = true;
 
@@ -234,6 +239,11 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         setContentView(R.layout.activity_events_map);
         buildGoogleApiClient();
 
+        Intent intent = getIntent();
+
+        user = intent.getStringExtra(WelcomePage.EXTRA_USERNAME);
+        logged = intent.getBooleanExtra(WelcomePage.EXTRA_LOGGED, false);
+
     }
 
     @Override
@@ -383,6 +393,9 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
 
                         String longitude = longitudes1.get(index);
                         intent.putExtra(EXTRA_LONGITUDE, longitude);
+
+                        intent.putExtra(EXTRA_USERNAME, user);
+                        intent.putExtra(EXTRA_LOGGED, logged);
 
                         startActivity(intent);
                     }
