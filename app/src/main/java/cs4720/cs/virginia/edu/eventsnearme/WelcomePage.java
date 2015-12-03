@@ -62,7 +62,7 @@ public class WelcomePage extends AppCompatActivity
         final String finalUser = user;
         final String finalPassword = password;
         if (!registering) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseUserCLass");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseUserClass");
             query.whereEqualTo("username", finalUser);
             query.whereEqualTo("password", finalPassword);
             Log.d("finalUser", finalUser);
