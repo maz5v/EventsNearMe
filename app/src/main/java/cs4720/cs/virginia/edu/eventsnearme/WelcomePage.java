@@ -68,16 +68,20 @@ public class WelcomePage extends AppCompatActivity
                 public void done(List<ParseObject> objectList, ParseException e) {
                     if (e == null) {
                         //create toast login failed message
-                        Log.d("login failed,", "login failed");
+                        if (objectList.isEmpty()) {
+                            Log.d("login failed,", "login failed");
+                        } else {
+                            userName = finalUser;
+                            loggedIn = true;
+                            findViewById(R.id.button3).setVisibility(View.VISIBLE);
+                            findViewById(R.id.button4).setVisibility(View.VISIBLE);
+                            findViewById(R.id.button8).setVisibility(View.VISIBLE);
+                            findViewById(R.id.button11).setVisibility(View.VISIBLE);
+                            findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
+                            findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+                        }
                     } else {
-                        userName = finalUser;
-                        loggedIn = true;
-                        findViewById(R.id.button3).setVisibility(View.VISIBLE);
-                        findViewById(R.id.button4).setVisibility(View.VISIBLE);
-                        findViewById(R.id.button8).setVisibility(View.VISIBLE);
-                        findViewById(R.id.button11).setVisibility(View.VISIBLE);
-                        findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
-                        findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+                        //error occurred
                     }
                 }
             });

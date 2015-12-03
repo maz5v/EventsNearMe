@@ -38,9 +38,7 @@
         android:layout_below="@+id/textView6"
         android:layout_centerHorizontal="true"
         android:onClick="findSomethingNearMe"
-    />
-
-    <!--android:visibility="invisible"-->
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -50,7 +48,8 @@
         android:layout_marginTop="17dp"
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
-        android:onClick="shareAnEvent"/>
+        android:onClick="shareAnEvent"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -61,7 +60,8 @@
         android:onClick="goToEvents"
         android:layout_alignRight="@+id/button4"
         android:layout_alignEnd="@+id/button4"
-        android:layout_below="@+id/button4"/>
+        android:layout_below="@+id/button4"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -71,7 +71,8 @@
         android:onClick="clearFile"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="108dp"/>
+        android:layout_marginBottom="108dp"
+        android:visibility="invisible" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
