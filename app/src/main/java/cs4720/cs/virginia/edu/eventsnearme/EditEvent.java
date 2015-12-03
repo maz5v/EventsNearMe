@@ -56,6 +56,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+    public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
 
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
@@ -360,6 +361,8 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         selectionIntent.putExtra(EXTRA_LOGGED, logged);
         intent.putExtra(EXTRA_EVENTID, id);
         selectionIntent.putExtra(EXTRA_EVENTID, id);
+        intent.putExtra(EXTRA_SENDER, "EditEvent");
+        selectionIntent.putExtra(EXTRA_SENDER, "EditEvent");
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();

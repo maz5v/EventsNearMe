@@ -94,7 +94,7 @@ public class EventInfo extends AppCompatActivity {
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else eventImage.setImageURI(Uri.parse(imageURIString));
-        } else if (sender.equals("EventsMap") || sender.equals("EventsPage")) {
+        } else if (sender.equals("EventsMap") || sender.equals("EventsPage") || sender.equals("EditEvent")) {
             Log.d("reached here 1", "reached here 1");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
