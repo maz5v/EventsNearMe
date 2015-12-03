@@ -63,15 +63,41 @@
         android:layout_marginBottom="82dp"
         android:onClick="returnHome" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/eventRatingInfo"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/tags"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp" />
+        android:layout_marginTop="96dp" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton3"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_up_float"
+            android:onClick="upVote" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Rating 1-10"
+            android:id="@+id/eventRatingInfo"
+            android:layout_alignTop="@+id/description"
+            android:layout_alignLeft="@+id/button14"
+            android:layout_alignStart="@+id/button14"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton4"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_down_float"
+            android:onClick="downVote" />
+    </LinearLayout>
 
     <ImageView
         android:layout_width="wrap_content"

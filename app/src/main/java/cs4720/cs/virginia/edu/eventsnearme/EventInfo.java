@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
 public class EventInfo extends AppCompatActivity {
 
     public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
@@ -35,6 +42,8 @@ public class EventInfo extends AppCompatActivity {
     private String myPhoto = "";
     private String myId = "";
     private String user;
+    private int rating;
+    private int initialRating;
     private boolean logged = false;
 
     @Override
@@ -85,15 +94,50 @@ public class EventInfo extends AppCompatActivity {
         String photo = intent.getStringExtra(CreateEvent.PHOTO_URI);
         myPhoto = photo;
 
-        String rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
+        String rating2 = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
-        eventRating.setText("Rating: " + rating);
+        eventRating.setText("Rating: " + rating2);
 
         String id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
         myId = id;
 
         logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
         user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
+
+        rating = Integer.parseInt(rating2);
+        initialRating = Integer.parseInt(rating2);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //Instead of checking title, we want to check ID
+        if (rating != initialRating) {
+            TextView titleText = (TextView)findViewById(R.id.title);
+            String myTitle = titleText.getText().toString();
+            myTitle = myTitle.substring(7);
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
+            query.whereEqualTo("title", myTitle);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objectList, ParseException e) {
+                    if (e == null) {
+                        for (ParseObject o : objectList) {
+                            int dif = rating - initialRating;
+                            int updatedTimesRated = o.getNumber("timesRated").intValue() + 1;
+                            int updatedRatingsSum = o.getNumber("ratingsSum").intValue() + dif;
+                            int updatedRating = updatedRatingsSum / updatedTimesRated;
+                            o.put("timesRated", updatedTimesRated);
+                            o.put("ratingsSum", updatedRatingsSum);
+                            o.put("rating", updatedRating);
+                            o.saveInBackground();
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -116,6 +160,20 @@ public class EventInfo extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void upVote(View view) {
+        if(rating == 10) return;
+        rating++;
+        TextView ratingView = (TextView) findViewById(R.id.rating);
+        ratingView.setText("" + rating);
+    }
+
+    public void downVote(View view) {
+        if (rating == 1) return;
+        rating--;
+        TextView ratingView = (TextView) findViewById(R.id.rating);
+        ratingView.setText("" + rating);
     }
 
     public void returnHome(View view) {

@@ -269,6 +269,8 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 eventObject.put("tag2", tag2);
                 eventObject.put("tag3", tag3);
                 eventObject.put("userName", userName);
+                eventObject.put("ratingsSum", rating);
+                eventObject.put("timesRated", 1);
                 eventObject.saveInBackground();
                 // Stop PARSE stuff
 
