@@ -114,6 +114,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         ratingText.setText(rating2);
         rating = Integer.parseInt(rating2);
         initialRating = Integer.parseInt(rating2);
+        updatedRating = initialRating;
 
         String tag1 = intent.getStringExtra(EventInfo.EXTRA_TAG1);
         String tag2 = intent.getStringExtra(EventInfo.EXTRA_TAG2);
@@ -366,9 +367,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         intent.putExtra(EXTRA_SENDER, "EditEvent");
         selectionIntent.putExtra(EXTRA_SENDER, "EditEvent");
 
-        intent.putExtra(EXTRA_RATING, ""+updatedRating);
-        selectionIntent.putExtra(EXTRA_RATING, ""+updatedRating);
-
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         Log.i("Radio Button ID", "" + radioButtonId);
@@ -431,6 +429,8 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 }
             });
 
+            intent.putExtra(EXTRA_RATING, ""+updatedRating);
+            selectionIntent.putExtra(EXTRA_RATING, ""+updatedRating);
             startActivity(intent);
 
         } else if (radioButtonId == 2131558555) {
