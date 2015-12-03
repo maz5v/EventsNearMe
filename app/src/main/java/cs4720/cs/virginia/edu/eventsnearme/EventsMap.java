@@ -35,11 +35,13 @@ import com.parse.ParseQuery;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 public class EventsMap extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
+    public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
     public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
@@ -68,6 +70,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     private ArrayList<String> images = new ArrayList<>();
     private ArrayList<String> ratings = new ArrayList<>();
 
+    private ArrayList<String> ids1 = new ArrayList<>();
     private ArrayList<String> tempTitles1 = new ArrayList<>();
     private ArrayList<String> latitudes1 = new ArrayList<>();
     private ArrayList<String> longitudes1 = new ArrayList<>();
@@ -293,20 +296,26 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 16));
+        /*
         for(int i = 0; i < titles.length; i++){
             map.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.valueOf(latitudes.get(i)), Double.valueOf(longitudes.get(i))))
                     .title(titles[i]));
-        }
+        }*/
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
         //query.whereEqualTo("title", "update");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objectList, ParseException e) {
+
+                final HashMap<Marker, Integer> markerMap = new HashMap<>();
+                int myIndex = 0;
+
                 if (e == null) {
                     Log.d("score", "Retrieved " + objectList.size() + " scores");
                     for (ParseObject o : objectList) {
                         Log.i("The title: ", (String) o.get("title"));
+                        ids1.add((String) o.get("eventId"));
                         tempTitles1.add((String) o.get("title"));
                         latitudes1.add((String) o.get("latitude"));
                         longitudes1.add((String) o.get("longitude"));
@@ -316,9 +325,11 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                         tag3s1.add((String) o.get("tag3"));
                         images1.add("NO_IMAGE");
                         ratings1.add(Integer.toString((Integer) o.get("rating")));
-                        map.addMarker(new MarkerOptions()
+                        Marker myMark = map.addMarker(new MarkerOptions()
                                 .position(new LatLng(Double.valueOf((String) o.get("latitude")), Double.valueOf((String) o.get("longitude"))))
                                 .title((String) o.get("title")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        markerMap.put(myMark, myIndex);
+                        myIndex++;
                     }
                 } else {
                     //Log.d("score", "Error: " + e.getMessage());
@@ -329,18 +340,22 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     @Override
                     public void onInfoWindowClick(Marker marker) {
 
-                        int index = -1;
+                        int index = markerMap.get(marker);
 
+                        /*
                         for (int i = 0; i < tempTitles1.size(); i++) {
                             if (marker.getTitle().equals(tempTitles1.get(i))) {
                                 index = i;
                                 break;
                             }
-                        }
+                        }*/
 
                         Intent intent = new Intent(EventsMap.this, EventInfo.class);
 
-                        String title = marker.getTitle();
+                        String id = ids1.get(index);
+                        intent.putExtra(EXTRA_EVENTID, id);
+
+                        String title = tempTitles1.get(index);
                         intent.putExtra(EXTRA_TITLE, title);
 
                         Log.i("ttttttttttttt", title);
@@ -378,7 +393,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                 loading = false;
             }
         });
-        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+        /*map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
 
@@ -422,7 +438,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
 
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
