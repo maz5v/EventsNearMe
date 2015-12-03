@@ -34,6 +34,7 @@ import java.util.List;
 
 public class EditEvent extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
     public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
@@ -43,6 +44,8 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
     public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LAT";
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
+    public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
+    public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
 
     public int rating = 5;
     private int initialRating;
@@ -54,6 +57,10 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
 
+    private String user;
+    private boolean logged;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +71,10 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Intent intent = getIntent();
+
+        user = intent.getStringExtra(EventInfo.EXTRA_USERNAME);
+        logged = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
+        id = intent.getStringExtra(EventInfo.EXTRA_EVENTID);
 
         String title = intent.getStringExtra(EventInfo.EXTRA_TITLE);
         myTitle = title;
@@ -173,8 +184,10 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         Intent intent = new Intent(this, EventInfo.class);
         Intent selectionIntent = new Intent(this, EditOnMap.class);
 
-        intent.putExtra(EXTRA_TITLE, myTitle);
-        selectionIntent.putExtra(EXTRA_TITLE, myTitle);
+        EditText titleText = (EditText) findViewById(R.id.title);
+        String title = titleText.getText().toString();
+        intent.putExtra(EXTRA_TITLE, title);
+        selectionIntent.putExtra(EXTRA_TITLE, title);
 
         EditText descriptionText = (EditText) findViewById(R.id.description);
         String description = descriptionText.getText().toString();
@@ -212,6 +225,13 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         intent.putExtra(PHOTO_URI, myPhoto);
         selectionIntent.putExtra(PHOTO_URI, myPhoto);
 
+        intent.putExtra(EXTRA_USERNAME, user);
+        selectionIntent.putExtra(EXTRA_USERNAME, user);
+        intent.putExtra(EXTRA_LOGGED, logged);
+        selectionIntent.putExtra(EXTRA_LOGGED, logged);
+        intent.putExtra(EXTRA_EVENTID, id);
+        selectionIntent.putExtra(EXTRA_EVENTID, id);
+
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         Log.i("Radio Button ID", "" + radioButtonId);
@@ -225,7 +245,9 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                     if (e == null) {
                         Log.d("score", "Retrieved " + objectList.size() + " scores");
                         for (ParseObject eventObject : objectList) {
-                            //eventObject.put("title", title);
+                            EditText titleText = (EditText) findViewById(R.id.title);
+                            String title = titleText.getText().toString();
+                            eventObject.put("title", title);
 
                             EditText descriptionText = (EditText) findViewById(R.id.description);
                             String description = descriptionText.getText().toString();
@@ -285,7 +307,9 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                     if (e == null) {
                         Log.d("score", "Retrieved " + objectList.size() + " scores");
                         for (ParseObject eventObject : objectList) {
-                            //eventObject.put("title", title);
+                            EditText titleText = (EditText) findViewById(R.id.title);
+                            String title = titleText.getText().toString();
+                            eventObject.put("title", title);
 
                             EditText descriptionText = (EditText) findViewById(R.id.description);
                             String description = descriptionText.getText().toString();
