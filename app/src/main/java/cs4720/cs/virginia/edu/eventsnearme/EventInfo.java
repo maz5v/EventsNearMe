@@ -165,14 +165,14 @@ public class EventInfo extends AppCompatActivity {
     public void upVote(View view) {
         if(rating == 10) return;
         rating++;
-        TextView ratingView = (TextView) findViewById(R.id.rating);
+        TextView ratingView = (TextView) findViewById(R.id.eventRatingInfo);
         ratingView.setText("" + rating);
     }
 
     public void downVote(View view) {
         if (rating == 1) return;
         rating--;
-        TextView ratingView = (TextView) findViewById(R.id.rating);
+        TextView ratingView = (TextView) findViewById(R.id.eventRatingInfo);
         ratingView.setText("" + rating);
     }
 
