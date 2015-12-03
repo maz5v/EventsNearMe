@@ -96,7 +96,7 @@ public class EventInfo extends AppCompatActivity {
 
         String rating2 = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
-        eventRating.setText("Rating: " + rating2);
+        eventRating.setText("" + rating2);
 
         String id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
         myId = id;
