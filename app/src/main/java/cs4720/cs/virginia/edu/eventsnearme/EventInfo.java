@@ -198,9 +198,8 @@ public class EventInfo extends AppCompatActivity {
         intent.putExtra(EXTRA_DESCRIPTION, description);
 
         TextView ratingText = (TextView)findViewById(R.id.eventRatingInfo);
-        String rating = ratingText.getText().toString();
-        rating = rating.substring(8);
-        intent.putExtra(EXTRA_RATING, rating);
+        String rating2 = ratingText.getText().toString();
+        intent.putExtra(EXTRA_RATING, rating2);
 
         intent.putExtra(EXTRA_TAG1, myTag1);
         intent.putExtra(EXTRA_TAG2, myTag2);
