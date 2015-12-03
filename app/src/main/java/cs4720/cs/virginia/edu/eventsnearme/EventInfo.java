@@ -249,4 +249,8 @@ public class EventInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void deleteEvent(View view) {
+
+    }
+
 }
