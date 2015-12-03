@@ -340,10 +340,19 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                             images1.add("NO_IMAGE");
                         }
                         ratings1.add(Integer.toString((Integer) o.get("rating")));
-                        Marker myMark = map.addMarker(new MarkerOptions()
-                                .position(new LatLng(Double.valueOf((String) o.get("latitude")), Double.valueOf((String) o.get("longitude"))))
-                                .title((String) o.get("title")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                        markerMap.put(myMark, myIndex);
+                        String creator = (String) o.get("userName");
+
+                        if (creator.equals(user)) {
+                            Marker myMark = map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(Double.valueOf((String) o.get("latitude")), Double.valueOf((String) o.get("longitude"))))
+                                    .title((String) o.get("title")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            markerMap.put(myMark, myIndex);
+                        } else {
+                            Marker myMark = map.addMarker(new MarkerOptions()
+                                    .position(new LatLng(Double.valueOf((String) o.get("latitude")), Double.valueOf((String) o.get("longitude"))))
+                                    .title((String) o.get("title")).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            markerMap.put(myMark, myIndex);
+                        }
                         myIndex++;
                     }
                 } else {
