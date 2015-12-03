@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="@string/return_home"
         android:id="@+id/returnHome"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="65dp"
         android:onClick="returnHome"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -74,13 +74,60 @@
         android:layout_marginRight="180dp"
         android:contentDescription="@string/Event_Picture" />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/eventRatingInfo"
-        android:layout_toRightOf="@id/eventPicture"
-        android:layout_centerVertical="true" />
+        android:layout_alignBottom="@+id/tags"
+        android:layout_toRightOf="@+id/eventPicture"
+        android:layout_toEndOf="@+id/eventPicture"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton5"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_up_float"
+            android:onClick="upVote" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Rating 1-10"
+            android:id="@+id/eventRatingInfo"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton6"
+            android:layout_gravity="center_horizontal"
+            android:src="@android:drawable/arrow_down_float"
+            android:onClick="downVote" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_event"
+        android:id="@+id/button5"
+        android:onClick="editEvent"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/returnHome"
+        android:layout_toStartOf="@+id/returnHome" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button16"
+        android:onClick="deleteEvent"
+        android:layout_alignTop="@+id/button5"
+        android:layout_toRightOf="@+id/returnHome"
+        android:layout_toEndOf="@+id/returnHome" />
 
 </RelativeLayout>
