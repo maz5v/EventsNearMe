@@ -3,8 +3,6 @@ package cs4720.cs.virginia.edu.eventsnearme;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +10,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,12 +26,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
-import java.io.FileOutputStream;
-import java.util.Random;
+import java.util.List;
 
-public class SelectOnMap extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+public class EditOnMap extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -41,8 +42,6 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private GoogleMap map;
     private Marker marker;
 
-    private final String file = "eventDataFile";
-    private String id;
     private String title;
     private String description;
     private String tag1;
@@ -51,10 +50,26 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private String photoURI;
     private String rating;
 
-    private String dbLat;
-    private String dbLong;
-
     private Intent intent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_on_map);
+        buildGoogleApiClient();
+
+        intent = getIntent();
+
+        title = intent.getStringExtra(EditEvent.EXTRA_TITLE);
+        description = intent.getStringExtra(EditEvent.EXTRA_DESCRIPTION);
+        tag1 = intent.getStringExtra(EditEvent.EXTRA_TAG1);
+        tag2 = intent.getStringExtra(EditEvent.EXTRA_TAG2);
+        tag3 = intent.getStringExtra(EditEvent.EXTRA_TAG3);
+        photoURI = intent.getStringExtra(EditEvent.PHOTO_URI);
+        rating = intent.getStringExtra(EditEvent.EXTRA_RATING);
+
+        Log.i("Rating", rating);
+    }
 
     @Override
     protected void onStart() {
@@ -63,28 +78,9 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_on_map);
-        buildGoogleApiClient();
-
-        intent = getIntent();
-
-        id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
-        title = intent.getStringExtra(CreateEvent.EXTRA_TITLE);
-        description = intent.getStringExtra(CreateEvent.EXTRA_DESCRIPTION);
-        tag1 = intent.getStringExtra(CreateEvent.EXTRA_TAG1);
-        tag2 = intent.getStringExtra(CreateEvent.EXTRA_TAG2);
-        tag3 = intent.getStringExtra(CreateEvent.EXTRA_TAG3);
-        photoURI = intent.getStringExtra(CreateEvent.PHOTO_URI);
-        rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
-
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_select_on_map, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_on_map, menu);
         return true;
     }
 
@@ -167,7 +163,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
 
     }
 
-    public void submit(View view) {
+    public void onEdit(View view) {
         if (marker == null) {
             Context context = getApplicationContext();
             CharSequence text = "Please place a marker on the map to choose a location!";
@@ -177,48 +173,33 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
             toast.setGravity(Gravity.TOP, 0, 0);
             toast.show();
         } else {
-            try {
-                FileOutputStream output = openFileOutput(file, Context.MODE_APPEND);
-                String finalString = "";
-                finalString = finalString + "Title: " + title;
-                finalString = finalString + " Description: " + description;
-                finalString = finalString + " Tag 1: " + tag1;
-                finalString = finalString + " Tag 2: " + tag2;
-                finalString = finalString + " Tag 3: " + tag3;
-                if(photoURI != null)
-                    finalString = finalString + " Image: " + photoURI;
-                else finalString = finalString + " Image: NO_IMAGE";
-                finalString = finalString + " Rating: " + rating;
-                Log.i("Marker lat: ", String.valueOf(marker.getPosition().latitude));
-                Log.i("Marker lng: ", String.valueOf(marker.getPosition().longitude));
-                dbLat = String.valueOf(marker.getPosition().latitude);
-                dbLong = String.valueOf(marker.getPosition().longitude);
-                finalString = finalString + " Latitude: " + String.valueOf(marker.getPosition().latitude);
-                finalString = finalString + " Longitude: " + String.valueOf(marker.getPosition().longitude);
-                finalString = finalString + " ||| ";
-                output.write(finalString.getBytes());
-                Log.d("Error Checking: ", finalString);
-                output.close();
-            } catch (Exception e) {
-                Log.i("Exception writing file", e.getMessage());
-            }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
+            query.whereEqualTo("title", title);
+
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objectList, ParseException e) {
+                    if (e == null) {
+                        Log.d("score", "Retrieved " + objectList.size() + " scores");
+                        for (ParseObject eventObject : objectList) {
+                            //eventObject.put("title", title);
+                            eventObject.put("description", description);
+                            eventObject.put("latitude", String.valueOf(marker.getPosition().latitude));
+                            eventObject.put("longitude", String.valueOf(marker.getPosition().longitude));
+                            eventObject.put("rating", Integer.parseInt(rating));
+                            eventObject.put("tag1", tag1);
+                            eventObject.put("tag2", tag2);
+                            eventObject.put("tag3", tag3);
+                            eventObject.saveInBackground();
+                        }
+                    } else {
+                        //Log.d("score", "Error: " + e.getMessage());
+                    }
+                }
+            });
 
             intent.setClass(this, EventInfo.class);
-
-            // Start PARSE stuff
-            ParseClass eventObject = new ParseClass();
-            eventObject.put("eventId", id);
-            eventObject.put("title", title);
-            eventObject.put("description", description);
-            eventObject.put("latitude", dbLat);
-            eventObject.put("longitude", dbLong);
-            eventObject.put("rating", Integer.parseInt(rating));
-            eventObject.put("tag1", tag1);
-            eventObject.put("tag2", tag2);
-            eventObject.put("tag3", tag3);
-            eventObject.saveInBackground();
-            // Stop PARSE stuff
-
+            // maybe set lat/long? and also in selectOnMap?
             startActivity(intent);
         }
     }

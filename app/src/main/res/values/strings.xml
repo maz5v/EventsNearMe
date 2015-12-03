@@ -58,4 +58,5 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="cancel">Cancel</string>
+    <string name="title_activity_edit_on_map">EditOnMap</string>
 </resources>

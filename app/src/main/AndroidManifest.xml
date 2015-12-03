@@ -65,6 +65,10 @@
             android:name=".EditEvent"
             android:label="@string/title_activity_edit_event" >
         </activity>
+        <activity
+            android:name=".EditOnMap"
+            android:label="@string/title_activity_edit_on_map" >
+        </activity>
     </application>
 
 </manifest>

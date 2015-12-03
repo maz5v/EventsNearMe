@@ -163,35 +163,46 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         Log.i("The title", "" + temppp.length());
 
         Intent intent = new Intent(this, EventInfo.class);
+        Intent selectionIntent = new Intent(this, EditOnMap.class);
 
         intent.putExtra(EXTRA_TITLE, myTitle);
+        selectionIntent.putExtra(EXTRA_TITLE, myTitle);
 
         EditText descriptionText = (EditText) findViewById(R.id.description);
         String description = descriptionText.getText().toString();
         intent.putExtra(EXTRA_DESCRIPTION, description);
+        selectionIntent.putExtra(EXTRA_DESCRIPTION, description);
 
         intent.putExtra(EXTRA_RATING, Integer.toString(rating));
+        selectionIntent.putExtra(EXTRA_RATING, Integer.toString(rating));
 
         ToggleButton toggle1 = (ToggleButton) findViewById(R.id.tag1);
         ToggleButton toggle2 = (ToggleButton) findViewById(R.id.tag2);
         ToggleButton toggle3 = (ToggleButton) findViewById(R.id.tag3);
         if (toggle1.isChecked()) {
             intent.putExtra(EXTRA_TAG1, "Food");
+            selectionIntent.putExtra(EXTRA_TAG1, "Food");
         } else {
             intent.putExtra(EXTRA_TAG1, "");
+            selectionIntent.putExtra(EXTRA_TAG1, "");
         }
         if (toggle2.isChecked()) {
             intent.putExtra(EXTRA_TAG2, "Entertainment");
+            selectionIntent.putExtra(EXTRA_TAG2, "Entertainment");
         } else {
             intent.putExtra(EXTRA_TAG2, "");
+            selectionIntent.putExtra(EXTRA_TAG2, "");
         }
         if (toggle3.isChecked()) {
             intent.putExtra(EXTRA_TAG3, "Shopping");
+            selectionIntent.putExtra(EXTRA_TAG3, "Shopping");
         } else {
             intent.putExtra(EXTRA_TAG3, "");
+            selectionIntent.putExtra(EXTRA_TAG3, "");
         }
 
         intent.putExtra(PHOTO_URI, myPhoto);
+        selectionIntent.putExtra(PHOTO_URI, myPhoto);
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
@@ -300,7 +311,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             startActivity(intent);
 
         } else {
-
+            startActivity(selectionIntent);
         }
 
     }

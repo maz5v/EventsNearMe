@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -39,6 +40,7 @@ import com.parse.ParseObject;
 
 public class CreateEvent extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
+    public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
     public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
@@ -125,6 +127,13 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         }
         intent.putExtra(EXTRA_TITLE, title);
         selectionIntent.putExtra(EXTRA_TITLE, title);
+
+        Random random = new Random();
+        int rand = random.nextInt(100000);
+        String id = String.format("%06d", rand);
+        id = title + id;
+        intent.putExtra(EXTRA_EVENTID, id);
+        selectionIntent.putExtra(EXTRA_EVENTID, id);
 
         EditText descriptionText = (EditText) findViewById(R.id.description);
         String description = descriptionText.getText().toString();
@@ -226,6 +235,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
                 // Start PARSE stuff
                 ParseClass eventObject = new ParseClass();
+                eventObject.put("eventId", id);
                 eventObject.put("title", title);
                 eventObject.put("description", description);
                 eventObject.put("latitude", String.valueOf(mLastLocation.getLatitude()));
