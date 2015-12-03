@@ -17,8 +17,8 @@ public class ParseUserClass extends ParseObject{
         super();
     }
 
-    public static ParseQuery<ParseClass> getQuery() {
-        return ParseQuery.getQuery(ParseClass.class);
+    public static ParseQuery<ParseUserClass> getQuery() {
+        return ParseQuery.getQuery(ParseUserClass.class);
     }
 
 }
