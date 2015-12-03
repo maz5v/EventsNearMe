@@ -49,8 +49,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     public final static String EXTRA_TAG3 = "cs4720.cs.virginia.edu.eventsnearme.TAG3";
     public final static String PHOTO_URI = "cs4720.cs.virginia.edu.eventsnearme.PHOTOURI";
     public final static String EXTRA_RATING = "cs4720.cs.virginia.edu.eventsnearme.RATING";
-    public final static String EXTRA_LONGITUDE = "cs4720.cs.virginia.edu.eventsnearme.LONGITUDE";
-    public final static String EXTRA_LATITUDE = "cs4720.cs.virginia.edu.eventsnearme.LATITUDE";
+    public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONGITUDE";
+    public final static String EXTRA_LAT = "cs4720.cs.virginia.edu.eventsnearme.LATITUDE";
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
     public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
@@ -394,10 +394,11 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                         intent.putExtra(EXTRA_RATING, rating);
 
                         String latitude = latitudes1.get(index);
-                        intent.putExtra(EXTRA_LATITUDE, latitude);
+                        Log.i("My latitude", latitude);
+                        intent.putExtra(EXTRA_LAT, latitude);
 
                         String longitude = longitudes1.get(index);
-                        intent.putExtra(EXTRA_LONGITUDE, longitude);
+                        intent.putExtra(EXTRA_LONG, longitude);
 
                         intent.putExtra(EXTRA_USERNAME, user);
                         intent.putExtra(EXTRA_LOGGED, logged);

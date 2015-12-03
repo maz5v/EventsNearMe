@@ -129,10 +129,31 @@ public class EventInfo extends AppCompatActivity {
             }
         }
 
-        String lat = intent.getStringExtra(CreateEvent.EXTRA_LAT);
+        String lat = intent.getStringExtra(EventsMap.EXTRA_LAT);
+        if (lat == null) {
+            lat = intent.getStringExtra(CreateEvent.EXTRA_LAT);
+        }
+        if (lat == null) {
+            lat = intent.getStringExtra(EditEvent.EXTRA_LAT);
+        }
+        if (lat == null) {
+            Log.i("Still null", "Fuck");
+        }
+        Log.i("My latitude 2", lat);
         myLat = lat;
-        String lon = intent.getStringExtra(CreateEvent.EXTRA_LONG);
+
+        String lon = intent.getStringExtra(EventsMap.EXTRA_LONG);
+        if (lon == null) {
+            lon = intent.getStringExtra(CreateEvent.EXTRA_LONG);
+        }
+        if (lon == null) {
+            lon = intent.getStringExtra(EditEvent.EXTRA_LONG);
+        }
+        if (lon == null) {
+            Log.i("Still null", "Fuck");
+        }
         myLong = lon;
+
         String photo = intent.getStringExtra(CreateEvent.PHOTO_URI);
         myPhoto = photo;
 

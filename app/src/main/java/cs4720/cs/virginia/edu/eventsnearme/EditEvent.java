@@ -133,6 +133,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         }
 
         myLat = intent.getStringExtra(EventInfo.EXTRA_LAT);
+        Log.i("My latitude 2", myLat);
         myLong = intent.getStringExtra(EventInfo.EXTRA_LONG);
         myPhoto = intent.getStringExtra(EventInfo.PHOTO_URI);
 

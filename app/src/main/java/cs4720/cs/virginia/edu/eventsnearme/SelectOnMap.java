@@ -87,9 +87,10 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
         user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
         logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
         rotatePic = intent.getByteArrayExtra(CreateEvent.EXTRA_PHOTOARRAY);
-
-        imageFile = new ParseFile("image.webp", rotatePic);
-        imageFile.saveInBackground();
+        if (rotatePic != null) {
+            imageFile = new ParseFile("image.webp", rotatePic);
+            imageFile.saveInBackground();
+        }
 
     }
 
