@@ -58,11 +58,15 @@ public class WelcomePage extends AppCompatActivity
     }
 
     public void login(String user, boolean registering, String password) {
+        Log.d("username", user);
         final String finalUser = user;
+        final String finalPassword = password;
         if (!registering) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseUserCLass");
-            query.whereEqualTo("username", user);
-            query.whereEqualTo("password", password);
+            query.whereEqualTo("username", finalUser);
+            query.whereEqualTo("password", finalPassword);
+            Log.d("finalUser", finalUser);
+            Log.d("finalPassword", finalPassword);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objectList, ParseException e) {
