@@ -62,6 +62,16 @@ public class WelcomePage extends AppCompatActivity
         login(username, true, "");
     }
 
+    public void login() {
+        findViewById(R.id.button3).setVisibility(View.VISIBLE);
+        findViewById(R.id.button4).setVisibility(View.VISIBLE);
+        findViewById(R.id.button8).setVisibility(View.VISIBLE);
+        findViewById(R.id.button11).setVisibility(View.VISIBLE);
+        findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+    }
+
     public void login(String user, boolean registering, String password) {
         Log.d("username", user);
         final String finalUser = user;
@@ -137,6 +147,10 @@ public class WelcomePage extends AppCompatActivity
         if (intent.getStringExtra(EventInfo.EXTRA_USERNAME) != null) {
             userName = intent.getStringExtra(EventInfo.EXTRA_USERNAME);
             loggedIn = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
+        }
+
+        if (loggedIn) {
+            login();
         }
 
         Log.i("Welcome user AFTER", userName);
