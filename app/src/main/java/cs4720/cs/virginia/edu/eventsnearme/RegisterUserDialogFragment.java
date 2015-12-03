@@ -25,13 +25,13 @@ public class RegisterUserDialogFragment extends DialogFragment {
         final View myView = inflater.inflate(R.layout.dialog_login, null);
         builder.setView(myView)
                 // Add action buttons
-                .setPositiveButton(R.string.log_in, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.register, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         EditText usernameView = (EditText)myView.findViewById(R.id.username);
                         EditText passwordView = (EditText)myView.findViewById(R.id.password);
-                        mListener.onRegisterUserDialogPositiveClick(RegisterUserDialogFragment.this, usernameView.toString(), passwordView.toString());
+                        mListener.onRegisterUserDialogPositiveClick(RegisterUserDialogFragment.this, usernameView.getText().toString(), passwordView.getText().toString());
                     }
 
                 })
