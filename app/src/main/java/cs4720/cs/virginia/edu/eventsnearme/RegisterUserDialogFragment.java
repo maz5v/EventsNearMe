@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Student on 12/2/2015.
@@ -29,9 +32,20 @@ public class RegisterUserDialogFragment extends DialogFragment {
 
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText usernameView = (EditText)myView.findViewById(R.id.username);
-                        EditText passwordView = (EditText)myView.findViewById(R.id.password);
-                        mListener.onRegisterUserDialogPositiveClick(RegisterUserDialogFragment.this, usernameView.getText().toString(), passwordView.getText().toString());
+                        EditText usernameView = (EditText) myView.findViewById(R.id.username);
+                        EditText passwordView = (EditText) myView.findViewById(R.id.password);
+                        String username = usernameView.getText().toString();
+                        String password = passwordView.getText().toString();
+                        if (username.isEmpty() == true || password.isEmpty() == true) {
+                            Context context = myView.getContext();
+                            CharSequence text = "Error! Did you leave your username or password blank?";
+                            int duration = Toast.LENGTH_LONG;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.TOP, 0, 0);
+                            toast.show();
+                        } else {
+                            mListener.onRegisterUserDialogPositiveClick(RegisterUserDialogFragment.this, username, password);
+                        }
                     }
 
                 })

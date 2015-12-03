@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -65,15 +67,18 @@ public class WelcomePage extends AppCompatActivity
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseUserClass");
             query.whereEqualTo("username", finalUser);
             query.whereEqualTo("password", finalPassword);
-            Log.d("finalUser", finalUser);
-            Log.d("finalPassword", finalPassword);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objectList, ParseException e) {
                     if (e == null) {
                         //create toast login failed message
                         if (objectList.isEmpty()) {
-                            Log.d("login failed,", "login failed");
+                            Context context = getApplicationContext();
+                            CharSequence text = "Login failed!";
+                            int duration = Toast.LENGTH_LONG;
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.setGravity(Gravity.TOP, 0, 0);
+                            toast.show();
                         } else {
                             userName = finalUser;
                             loggedIn = true;
@@ -81,6 +86,7 @@ public class WelcomePage extends AppCompatActivity
                             findViewById(R.id.button4).setVisibility(View.VISIBLE);
                             findViewById(R.id.button8).setVisibility(View.VISIBLE);
                             findViewById(R.id.button11).setVisibility(View.VISIBLE);
+                            findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
                             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
                             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
                         }
@@ -96,12 +102,13 @@ public class WelcomePage extends AppCompatActivity
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
             findViewById(R.id.button8).setVisibility(View.VISIBLE);
             findViewById(R.id.button11).setVisibility(View.VISIBLE);
+            findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
         }
     }
 
-    public void logout(String user) {
+    public void logout(View view) {
         userName = "";
         loggedIn = false;
         findViewById(R.id.button3).setVisibility(View.INVISIBLE);
