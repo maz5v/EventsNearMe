@@ -83,6 +83,8 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     private ParseFile imageFile = null;
     private byte[] rotatePic = null;
 
+    private int updatedRating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -364,6 +366,9 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         intent.putExtra(EXTRA_SENDER, "EditEvent");
         selectionIntent.putExtra(EXTRA_SENDER, "EditEvent");
 
+        intent.putExtra(EXTRA_RATING, ""+updatedRating);
+        selectionIntent.putExtra(EXTRA_RATING, ""+updatedRating);
+
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
         Log.i("Radio Button ID", "" + radioButtonId);
@@ -411,7 +416,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                             if (initialRating != rating) {
                                 int updatedTimesRated = eventObject.getNumber("timesRated").intValue() + 1;
                                 int updatedRatingsSum = eventObject.getNumber("ratingsSum").intValue() + rating;
-                                int updatedRating = updatedRatingsSum / updatedTimesRated;
+                                updatedRating = updatedRatingsSum / updatedTimesRated;
                                 eventObject.put("timesRated", updatedTimesRated);
                                 eventObject.put("ratingsSum", updatedRatingsSum);
                                 eventObject.put("rating", updatedRating);
