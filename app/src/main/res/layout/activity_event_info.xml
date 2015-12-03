@@ -86,9 +86,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Rating 1-10"
             android:id="@+id/eventRatingInfo"
-            android:layout_alignTop="@+id/description"
-            android:layout_alignLeft="@+id/button14"
-            android:layout_alignStart="@+id/button14"
             android:layout_gravity="center_horizontal" />
 
         <ImageButton
@@ -105,7 +102,7 @@
     <!--android:layout_marginTop="100dp"-->
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_above="@+id/returnHome"
@@ -118,6 +115,7 @@
             android:id="@+id/eventPicture"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
+            android:layout_gravity="center_horizontal"
             android:contentDescription="@string/Event_Picture" />
     </FrameLayout>
 
