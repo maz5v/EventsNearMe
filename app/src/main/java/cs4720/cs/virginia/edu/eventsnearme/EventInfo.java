@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class EventInfo extends AppCompatActivity {
 
+    public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
     public final static String EXTRA_DESCRIPTION = "cs4720.cs.virginia.edu.eventsnearme.DESCRIPTION";
     public final static String EXTRA_TAG1 = "cs4720.cs.virginia.edu.eventsnearme.TAG1";
@@ -29,6 +30,7 @@ public class EventInfo extends AppCompatActivity {
     private String myLat = "";
     private String myLong = "";
     private String myPhoto = "";
+    private String myId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,9 @@ public class EventInfo extends AppCompatActivity {
         String rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         TextView eventRating = (TextView)findViewById(R.id.eventRatingInfo);
         eventRating.setText("Rating: " + rating);
+
+        String id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
+        myId = id;
     }
 
     @Override
@@ -134,6 +139,7 @@ public class EventInfo extends AppCompatActivity {
         intent.putExtra(EXTRA_LAT, myLat);
         intent.putExtra(EXTRA_LONG, myLong);
         intent.putExtra(PHOTO_URI, myPhoto);
+        intent.putExtra(EXTRA_EVENTID, myId);
 
         startActivity(intent);
     }
