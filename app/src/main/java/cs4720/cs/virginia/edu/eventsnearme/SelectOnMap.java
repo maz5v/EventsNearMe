@@ -221,6 +221,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
             eventObject.put("tag2", tag2);
             eventObject.put("tag3", tag3);
             eventObject.put("userName", user);
+            eventObject.put("timesRated", 1);
             eventObject.saveInBackground();
             // Stop PARSE stuff
 
