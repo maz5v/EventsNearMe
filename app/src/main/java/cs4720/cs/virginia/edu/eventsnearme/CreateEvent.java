@@ -55,6 +55,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+    public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
 
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_PICK_PHOTO = 2;
@@ -211,7 +212,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         selectionIntent.putExtra(EXTRA_USERNAME, userName);
         intent.putExtra(EXTRA_LOGGED, loggedIn);
         selectionIntent.putExtra(EXTRA_LOGGED, loggedIn);
-
+        selectionIntent.putExtra(EXTRA_SENDER, "CreateEvent");
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));

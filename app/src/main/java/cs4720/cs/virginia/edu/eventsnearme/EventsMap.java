@@ -53,6 +53,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     public final static String EXTRA_LATITUDE = "cs4720.cs.virginia.edu.eventsnearme.LATITUDE";
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+    public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -333,7 +334,11 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                         tag1s1.add((String) o.get("tag1"));
                         tag2s1.add((String) o.get("tag2"));
                         tag3s1.add((String) o.get("tag3"));
-                        images1.add("NO_IMAGE");
+                        if (o.get("image")!=null) {
+                            images1.add("getImage");
+                        } else {
+                            images1.add("NO_IMAGE");
+                        }
                         ratings1.add(Integer.toString((Integer) o.get("rating")));
                         Marker myMark = map.addMarker(new MarkerOptions()
                                 .position(new LatLng(Double.valueOf((String) o.get("latitude")), Double.valueOf((String) o.get("longitude"))))
@@ -396,6 +401,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
 
                         intent.putExtra(EXTRA_USERNAME, user);
                         intent.putExtra(EXTRA_LOGGED, logged);
+                        intent.putExtra(EXTRA_SENDER, "EventsMap");
 
                         startActivity(intent);
                     }

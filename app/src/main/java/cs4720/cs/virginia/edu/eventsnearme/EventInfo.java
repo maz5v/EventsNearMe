@@ -1,6 +1,8 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -80,12 +84,43 @@ public class EventInfo extends AppCompatActivity {
         TextView tagsText = (TextView)findViewById(R.id.tags);
         tagsText.setText(tag);
 
-        ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
-        String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
-        if (imageURIString.equals("NO_IMAGE")) {
-            eventImage.setVisibility(View.GONE);
+        final ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
+        String sender = intent.getStringExtra(CreateEvent.EXTRA_SENDER);
+        if (sender.equals("CreateEvent")) {
+            String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
+            if (imageURIString.equals("NO_IMAGE")) {
+                eventImage.setVisibility(View.GONE);
+            } else eventImage.setImageURI(Uri.parse(imageURIString));
+        } else if (sender.equals("EventsMap") || sender.equals("EventsPage")) {
+            String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
+            if (imageURIString.equals("NO_IMAGE")) {
+                eventImage.setVisibility(View.GONE);
+            } else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
+                query.whereEqualTo("eventId", CreateEvent.EXTRA_EVENTID);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objectList, ParseException e) {
+                        if (e == null) {
+                            for (ParseObject o : objectList) {
+                                ParseFile imageFile = (ParseFile)o.get("image");
+                                imageFile.getDataInBackground(new GetDataCallback() {
+                                    public void done(byte[] data, ParseException e) {
+                                        if (e == null) {
+                                            // data has the bytes for the resume
+                                            Bitmap bmpNew = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                            eventImage.setImageBitmap(bmpNew);
+                                        } else {
+                                            // something went wrong
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
-        else eventImage.setImageURI(Uri.parse(imageURIString));
 
         String lat = intent.getStringExtra(CreateEvent.EXTRA_LAT);
         myLat = lat;

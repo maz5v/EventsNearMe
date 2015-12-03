@@ -42,6 +42,7 @@ public class EventsPage extends AppCompatActivity {
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
+    public final static String EXTRA_SENDER = "cs4720.cs.virginia.edu.eventsnearme.SENDER";
 
     private String[] titles;
     private ArrayList<String> tempTitles = new ArrayList<>();
@@ -142,7 +143,11 @@ public class EventsPage extends AppCompatActivity {
                         tag1s1.add((String) o.get("tag1"));
                         tag2s1.add((String) o.get("tag2"));
                         tag3s1.add((String) o.get("tag3"));
-                        images1.add("NO_IMAGE");
+                        if (o.get("image") != null) {
+                            images1.add("getImage");
+                        } else {
+                            images1.add("NO_IMAGE");
+                        }
                         ratings1.add(Integer.toString((Integer) o.get("rating")));
                         myIndex++;
                     }
@@ -206,6 +211,7 @@ public class EventsPage extends AppCompatActivity {
             intent.putExtra(PHOTO_URI, images1.get(position));
             intent.putExtra(EXTRA_USERNAME, user);
             intent.putExtra(EXTRA_LOGGED, logged);
+            intent.putExtra(EXTRA_SENDER, "EventsPage");
 
             /*String temp = fileInfo;
 
