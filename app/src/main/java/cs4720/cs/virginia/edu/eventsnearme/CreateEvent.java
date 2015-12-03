@@ -63,6 +63,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     private final String file = "eventDataFile";
     File photoFile = null;
     Uri photoURI = null;
+    private String photoString = "";
     String mCurrentPhotoPath;
     public int rating = 5;
     private boolean rated = false;
@@ -102,6 +103,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 ratingView.setText("" + rating);
             }
             if (savedInstanceState.getByteArray("rotatePic") != null) {
+                photoString = savedInstanceState.getString("photoString");
                 rotatePic = savedInstanceState.getByteArray("rotatePic");
                 imageFile = new ParseFile("image.webp", rotatePic);
                 imageFile.saveInBackground();
@@ -138,6 +140,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         outState.putInt("rating", rating);
         outState.putBoolean("rated", rated);
         outState.putByteArray("rotatePic", rotatePic);
+        outState.putString("photoString", photoString);
     }
 
     @Override
@@ -221,7 +224,10 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         intent.putExtra(EXTRA_TAG3, tag3);
         selectionIntent.putExtra(EXTRA_TAG3, tag3);
 
-        if (photoURI != null) {
+        if (!photoString.equals("")) {
+            intent.putExtra(PHOTO_URI, photoString);
+            selectionIntent.putExtra(PHOTO_URI, photoString);
+        } else if (photoURI != null) {
             intent.putExtra(PHOTO_URI, photoURI.toString());
             selectionIntent.putExtra(PHOTO_URI, photoURI.toString());
         } else {
@@ -362,6 +368,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
+                photoString = photoURI.toString();
                 //Bundle extras = data.getExtras();
                 //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
@@ -382,6 +389,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
+                photoString = photoURI.toString();
                 //Bundle extras = data.getExtras();
                 //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
