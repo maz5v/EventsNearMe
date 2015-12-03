@@ -1,5 +1,7 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -201,6 +203,12 @@ public class EventInfo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void confirmDelete(View view) {
+        DialogFragment dialog = new ConfirmDeleteDialogFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "NoticeDialogFragment");
+    }
+
     public void upVote(View view) {
         if(rating == 10) return;
         rating++;
@@ -255,7 +263,9 @@ public class EventInfo extends AppCompatActivity {
     }
 
     public void deleteEvent(View view) {
-
+        DialogFragment dialog = new RegisterUserDialogFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "NoticeDialogFragment");
     }
 
 }

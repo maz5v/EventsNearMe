@@ -206,13 +206,6 @@ public class WelcomePage extends AppCompatActivity
 
     }
 
-    public void showRegisterWindow(View view) {
-        DialogFragment dialog = new RegisterUserDialogFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        dialog.show(ft, "NoticeDialogFragment");
-    }
-
-
     public void findSomethingNearMe(View view) {
         Intent intent = new Intent(this, EventsMap.class);
         intent.putExtra(EXTRA_LOGGED, loggedIn);
