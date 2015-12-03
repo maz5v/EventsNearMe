@@ -2,7 +2,11 @@ package cs4720.cs.virginia.edu.eventsnearme;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,9 +31,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EditEvent extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -47,12 +57,20 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     public final static String EXTRA_USERNAME = "cs4720.cs.virginia.edu.eventsnearme.USERNAME";
     public final static String EXTRA_LOGGED = "cs4720.cs.virginia.edu.eventsnearme.LOGGED";
 
+    static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_PICK_PHOTO = 2;
+
     public int rating = 5;
+    private boolean rated = false;
     private int initialRating;
     private String myTitle = "";
     private String myLat = "";
     private String myLong = "";
     private String myPhoto = "";
+    File photoFile = null;
+    String mCurrentPhotoPath;
+    private String photoString = "";
+    Uri photoURI = null;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -60,6 +78,9 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     private String user;
     private boolean logged;
     private String id;
+
+    private ParseFile imageFile = null;
+    private byte[] rotatePic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +132,21 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         myLong = intent.getStringExtra(EventInfo.EXTRA_LONG);
         myPhoto = intent.getStringExtra(EventInfo.PHOTO_URI);
 
+        if (savedInstanceState != null) {
+            TextView ratingView = (TextView)findViewById(R.id.eventRating);
+            if (savedInstanceState.getBoolean("rated")) {
+                rating = savedInstanceState.getInt("rating");
+                rated = savedInstanceState.getBoolean("rated");
+                ratingView.setText("" + rating);
+            }
+            if (savedInstanceState.getByteArray("rotatePic") != null) {
+                photoString = savedInstanceState.getString("photoString");
+                rotatePic = savedInstanceState.getByteArray("rotatePic");
+                imageFile = new ParseFile("image.webp", rotatePic);
+                imageFile.saveInBackground();
+            }
+        }
+
     }
 
     @Override
@@ -142,7 +178,14 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("rating", rating);
+        outState.putBoolean("rated", rated);
+        outState.putByteArray("rotatePic", rotatePic);
+        outState.putString("photoString", photoString);
+    }
 
     @Override
     protected void onStop() {
@@ -158,7 +201,92 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 .build();
     }
 
+    public void dispatchTakePictureIntent(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.i("IOException occurred: ", ex.getMessage());
+            }
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    public void dispatchPickPictureIntent(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_PICK_PHOTO);
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                photoURI = Uri.fromFile(photoFile);
+                photoString = photoURI.toString();
+                //Bundle extras = data.getExtras();
+                //Bitmap imageBitmap = (Bitmap) extras.get("data");
+                try {
+                    Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
+                    byte[] imageData = stream.toByteArray();
+                    rotatePic = imageData;
+                    Log.d("image size", ""+imageData.length);
+                    imageFile = new ParseFile("image.webp", imageData);
+                    imageFile.saveInBackground();
+                } catch (IOException e) {
+
+                }
+
+            }
+        }
+        if (requestCode == REQUEST_PICK_PHOTO) {
+            if (resultCode == RESULT_OK) {
+                photoURI = data.getData();
+                photoString = photoURI.toString();
+                //Bundle extras = data.getExtras();
+                //Bitmap imageBitmap = (Bitmap) extras.get("data");
+                try {
+                    Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
+
+                    byte[] imageData = stream.toByteArray();
+                    rotatePic = imageData;
+                    Log.d("image size", ""+imageData.length);
+                    imageFile = new ParseFile("image.webp", imageData);
+                    imageFile.saveInBackground();
+                } catch (IOException e) {
+
+                }
+            }
+        }
+    }
+
     public void upVote(View view) {
+        rated = true;
         if(rating == 10) return;
         rating++;
         TextView ratingView = (TextView) findViewById(R.id.rating);
@@ -166,6 +294,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     }
 
     public void downVote(View view) {
+        rated = true;
         if (rating == 1) return;
         rating--;
         TextView ratingView = (TextView) findViewById(R.id.rating);

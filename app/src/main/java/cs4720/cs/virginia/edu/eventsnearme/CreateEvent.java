@@ -96,7 +96,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
         if (savedInstanceState != null) {
             TextView ratingView = (TextView)findViewById(R.id.eventRating);
-            String temp = ratingView.getText().toString();
             if (savedInstanceState.getBoolean("rated")) {
                 rating = savedInstanceState.getInt("rating");
                 rated = savedInstanceState.getBoolean("rated");
