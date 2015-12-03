@@ -84,6 +84,8 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
     private ArrayList<String> images1 = new ArrayList<>();
     private ArrayList<String> ratings1 = new ArrayList<>();
 
+    HashMap<Marker, Integer> markerMapGlobal = new HashMap<>();
+
     private String user;
     private boolean logged = false;
 
@@ -359,6 +361,7 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
                     //Log.d("score", "Error: " + e.getMessage());
                 }
 
+                markerMapGlobal = markerMap;
 
                 map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                     @Override
@@ -420,6 +423,63 @@ public class EventsMap extends FragmentActivity implements GoogleApiClient.Conne
 
                 Log.i("tempTitles size inside", "" + tempTitles.size());
                 loading = false;
+            }
+        });
+
+        map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                int index = markerMapGlobal.get(marker);
+
+                        /*
+                        for (int i = 0; i < tempTitles1.size(); i++) {
+                            if (marker.getTitle().equals(tempTitles1.get(i))) {
+                                index = i;
+                                break;
+                            }
+                        }*/
+
+                Intent intent = new Intent(EventsMap.this, EventInfo.class);
+
+                String id = ids1.get(index);
+                intent.putExtra(EXTRA_EVENTID, id);
+
+                String title = tempTitles1.get(index);
+                intent.putExtra(EXTRA_TITLE, title);
+
+                Log.i("ttttttttttttt", title);
+
+                String description = descriptions1.get(index);
+                intent.putExtra(EXTRA_DESCRIPTION, description);
+
+                String tag1 = tag1s1.get(index);
+                intent.putExtra(EXTRA_TAG1, tag1);
+
+                String tag2 = tag2s1.get(index);
+                intent.putExtra(EXTRA_TAG2, tag2);
+
+                String tag3 = tag3s1.get(index);
+                intent.putExtra(EXTRA_TAG3, tag3);
+
+                String image = images1.get(index);
+                intent.putExtra(PHOTO_URI, image);
+
+                String rating = ratings1.get(index);
+                intent.putExtra(EXTRA_RATING, rating);
+
+                String latitude = latitudes1.get(index);
+                Log.i("My latitude", latitude);
+                intent.putExtra(EXTRA_LAT, latitude);
+
+                String longitude = longitudes1.get(index);
+                intent.putExtra(EXTRA_LONG, longitude);
+
+                intent.putExtra(EXTRA_USERNAME, user);
+                intent.putExtra(EXTRA_LOGGED, logged);
+                intent.putExtra(EXTRA_SENDER, "EventsMap");
+
+                startActivity(intent);
             }
         });
 
