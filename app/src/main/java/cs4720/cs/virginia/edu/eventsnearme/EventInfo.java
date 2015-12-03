@@ -88,13 +88,13 @@ public class EventInfo extends AppCompatActivity {
 
         final ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
         String sender = intent.getStringExtra(CreateEvent.EXTRA_SENDER);
-        if (sender.equals("CreateEvent")) {
+        if (sender.equals("CreateEvent") || sender.equals("EditEvent")) {
             Log.d("reached here", "reached here");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else eventImage.setImageURI(Uri.parse(imageURIString));
-        } else if (sender.equals("EventsMap") || sender.equals("EventsPage") || sender.equals("EditEvent")) {
+        } else if (sender.equals("EventsMap") || sender.equals("EventsPage")) {
             Log.d("reached here 1", "reached here 1");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
