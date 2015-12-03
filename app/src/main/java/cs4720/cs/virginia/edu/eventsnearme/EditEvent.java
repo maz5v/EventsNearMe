@@ -432,8 +432,16 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 }
             });
 
-            intent.putExtra(EXTRA_RATING, ""+updatedRating);
-            selectionIntent.putExtra(EXTRA_RATING, ""+updatedRating);
+            if (rating > initialRating) {
+                intent.putExtra(EXTRA_RATING, "" + (initialRating+1));
+                selectionIntent.putExtra(EXTRA_RATING, "" + (initialRating+1));
+            } else if (rating < initialRating) {
+                intent.putExtra(EXTRA_RATING, "" + (initialRating-1));
+                selectionIntent.putExtra(EXTRA_RATING, "" + (initialRating-1));
+            } else {
+                intent.putExtra(EXTRA_RATING, "" + updatedRating);
+                selectionIntent.putExtra(EXTRA_RATING, "" + updatedRating);
+            }
             startActivity(intent);
 
         } else if (radioButtonId == 2131558555) {
