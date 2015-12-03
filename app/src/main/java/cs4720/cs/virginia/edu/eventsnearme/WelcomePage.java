@@ -1,5 +1,7 @@
 package cs4720.cs.virginia.edu.eventsnearme;
 
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +21,31 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.Random;
 
-public class WelcomePage extends AppCompatActivity {
+public class WelcomePage extends AppCompatActivity
+        implements LogInDialogFragment.LoginDialogListener, RegisterUserDialogFragment.RegisterUserDialogListener {
 
     private final String file = "eventDataFile";
+    private boolean loggedIn = false;
+
+    @Override
+    public void onLoginDialogPositiveClick(DialogFragment dialog, String username, String password) {
+
+    }
+
+    /*
+    @Override
+    public void onLoginDialogNegativeClick(DialogFragment dialog) {
+
+    }
+    */
+
+    @Override
+    public void onRegisterUserDialogPositiveClick(DialogFragment dialog, String username, String password) {
+        ParseUserClass reg = new ParseUserClass();
+        reg.put("username", username);
+        reg.put("password", password);
+        reg.saveInBackground();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +74,20 @@ public class WelcomePage extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void showLogInWindow(View view) {
+        DialogFragment dialog = new LogInDialogFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "NoticeDialogFragment");
+
+    }
+
+    public void showRegisterWindow(View view) {
+        DialogFragment dialog = new RegisterUserDialogFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        dialog.show(ft, "NoticeDialogFragment");
+    }
+
 
     public void findSomethingNearMe(View view) {
         Intent intent = new Intent(this, EventsMap.class);
