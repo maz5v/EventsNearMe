@@ -24,6 +24,7 @@ import android.net.Uri;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.File;
@@ -36,6 +37,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.parse.Parse;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 
@@ -68,6 +70,8 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+
+    private ParseFile imageFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,6 +275,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 eventObject.put("userName", userName);
                 eventObject.put("ratingsSum", rating);
                 eventObject.put("timesRated", 1);
+                if (imageFile != null) {
+                    eventObject.put("image", imageFile);
+                }
                 eventObject.saveInBackground();
                 // Stop PARSE stuff
 
@@ -326,11 +333,28 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         if (requestCode == REQUEST_TAKE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] imageData = stream.toByteArray();
+
+                imageFile = new ParseFile("image.png", imageData);
+                imageFile.saveInBackground();
+
             }
         }
         if (requestCode == REQUEST_PICK_PHOTO) {
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] imageData = stream.toByteArray();
+
+                imageFile = new ParseFile("image.png", imageData);
+                imageFile.saveInBackground();
                 Log.i("path", photoURI.getPath());
                 Log.i("path2", photoURI.getEncodedPath());
             }
