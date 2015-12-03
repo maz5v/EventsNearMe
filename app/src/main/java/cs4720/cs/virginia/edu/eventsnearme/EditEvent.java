@@ -45,6 +45,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
     public final static String EXTRA_LONG = "cs4720.cs.virginia.edu.eventsnearme.LONG";
 
     public int rating = 5;
+    private int initialRating;
     private String myTitle = "";
     private String myLat = "";
     private String myLong = "";
@@ -77,6 +78,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         TextView ratingText = (TextView) findViewById(R.id.rating);
         ratingText.setText(rating2);
         rating = Integer.parseInt(rating2);
+        initialRating = Integer.parseInt(rating2);
 
         String tag1 = intent.getStringExtra(EventInfo.EXTRA_TAG1);
         String tag2 = intent.getStringExtra(EventInfo.EXTRA_TAG2);
@@ -128,6 +130,8 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         mGoogleApiClient.connect();
 
     }
+
+
 
     @Override
     protected void onStop() {
@@ -249,6 +253,14 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                                 eventObject.put("tag3", "Shopping");
                             } else {
                                 eventObject.put("tag3", "");
+                            }
+                            if (initialRating != rating) {
+                                int updatedTimesRated = eventObject.getNumber("timesRated").intValue() + 1;
+                                int updatedRatingsSum = eventObject.getNumber("ratingsSum").intValue() + rating;
+                                int updatedRating = updatedRatingsSum / updatedTimesRated;
+                                eventObject.put("timesRated", updatedTimesRated);
+                                eventObject.put("ratingsSum", updatedRatingsSum);
+                                eventObject.put("rating", updatedRating);
                             }
 
                             eventObject.saveInBackground();

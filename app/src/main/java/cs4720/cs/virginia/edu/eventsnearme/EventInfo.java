@@ -124,9 +124,8 @@ public class EventInfo extends AppCompatActivity {
                 public void done(List<ParseObject> objectList, ParseException e) {
                     if (e == null) {
                         for (ParseObject o : objectList) {
-                            int dif = rating - initialRating;
                             int updatedTimesRated = o.getNumber("timesRated").intValue() + 1;
-                            int updatedRatingsSum = o.getNumber("ratingsSum").intValue() + dif;
+                            int updatedRatingsSum = o.getNumber("ratingsSum").intValue() + rating;
                             int updatedRating = updatedRatingsSum / updatedTimesRated;
                             o.put("timesRated", updatedTimesRated);
                             o.put("ratingsSum", updatedRatingsSum);
