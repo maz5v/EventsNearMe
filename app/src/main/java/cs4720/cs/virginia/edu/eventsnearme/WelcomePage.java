@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +71,7 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
+        loggedIn = true;
     }
 
     public void login(String user, boolean registering, String password) {
@@ -156,9 +158,7 @@ public class WelcomePage extends AppCompatActivity
             loggedIn = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
         }
 
-        if (loggedIn) {
-            login();
-        }
+
 
         Log.i("Welcome user AFTER", userName);
         Log.i("Welcome logged AFTER", "" + loggedIn);
@@ -235,6 +235,20 @@ public class WelcomePage extends AppCompatActivity
             Log.i("Exception writing file", e.getMessage());
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("loggedIn", loggedIn);
+        outState.putString("userName", userName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        loggedIn = savedInstanceState.getBoolean("loggedIn");
+        userName = savedInstanceState.getString("userName");
     }
 
     public void fillNewsfeedFile(View view) {

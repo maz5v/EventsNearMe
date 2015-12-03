@@ -36,7 +36,8 @@
         android:layout_marginTop="43dp"
         android:onClick="findSomethingNearMe"
         android:layout_below="@+id/textView6"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -45,16 +46,8 @@
         android:id="@+id/button4"
         android:onClick="shareAnEvent"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/visit_newsfeed"
-        android:id="@+id/button5"
-        android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="9dp" />
+        android:visibility="invisible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,9 +55,41 @@
         android:text="@string/view_my_events"
         android:id="@+id/button8"
         android:onClick="goToEvents"
-        android:layout_below="@+id/button5"
         android:layout_alignLeft="@+id/button4"
         android:layout_alignStart="@+id/button4"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/button4"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:id="@+id/logoutButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:onClick="logout"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:id="@+id/loginButton"
+        android:layout_below="@+id/button3"
+        android:layout_alignLeft="@+id/logoutButton"
+        android:layout_alignStart="@+id/logoutButton"
+        android:onClick="showLogInWindow" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/registerButton"
+        android:onClick="showRegisterWindow"
+        android:layout_below="@+id/button4"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton" />
 
 </RelativeLayout>
