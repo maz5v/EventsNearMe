@@ -208,6 +208,8 @@ public class EventInfo extends AppCompatActivity {
         intent.putExtra(EXTRA_LONG, myLong);
         intent.putExtra(PHOTO_URI, myPhoto);
         intent.putExtra(EXTRA_EVENTID, myId);
+        intent.putExtra(EXTRA_USERNAME, user);
+        intent.putExtra(EXTRA_LOGGED, logged);
 
         startActivity(intent);
     }
