@@ -8,6 +8,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+@ParseClassName("ParseUserClass")
 public class ParseUserClass extends ParseObject{
     public String username;
     public String password;
