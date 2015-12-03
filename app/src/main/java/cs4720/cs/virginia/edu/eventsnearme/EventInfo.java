@@ -105,6 +105,7 @@ public class EventInfo extends AppCompatActivity {
                     @Override
                     public void done(List<ParseObject> objectList, ParseException e) {
                         if (e == null) {
+                            Log.d("objectList.size:", ""+objectList.size());
                             for (ParseObject o : objectList) {
                                 ParseFile imageFile = (ParseFile)o.get("image");
                                 imageFile.getDataInBackground(new GetDataCallback() {
@@ -113,7 +114,7 @@ public class EventInfo extends AppCompatActivity {
                                             // data has the bytes for the resume
                                             Bitmap bmpNew = BitmapFactory.decodeByteArray(data, 0, data.length);
                                             eventImage.setImageBitmap(bmpNew);
-                                            eventImage.draw();
+                                            //eventImage.draw();
                                         } else {
                                             // something went wrong
                                         }
