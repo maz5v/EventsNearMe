@@ -42,6 +42,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private Marker marker;
 
     private final String file = "eventDataFile";
+    private String id;
     private String title;
     private String description;
     private String tag1;
@@ -69,6 +70,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
 
         intent = getIntent();
 
+        id = intent.getStringExtra(CreateEvent.EXTRA_EVENTID);
         title = intent.getStringExtra(CreateEvent.EXTRA_TITLE);
         description = intent.getStringExtra(CreateEvent.EXTRA_DESCRIPTION);
         tag1 = intent.getStringExtra(CreateEvent.EXTRA_TAG1);
@@ -205,6 +207,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
 
             // Start PARSE stuff
             ParseClass eventObject = new ParseClass();
+            eventObject.put("eventId", id);
             eventObject.put("title", title);
             eventObject.put("description", description);
             eventObject.put("latitude", dbLat);
