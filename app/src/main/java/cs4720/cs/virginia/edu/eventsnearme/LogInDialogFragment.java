@@ -31,7 +31,7 @@ public class LogInDialogFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText usernameView = (EditText)myView.findViewById(R.id.username);
                         EditText passwordView = (EditText)myView.findViewById(R.id.password);
-                        mListener.onLoginDialogPositiveClick(LogInDialogFragment.this, usernameView.toString(), passwordView.toString());
+                        mListener.onLoginDialogPositiveClick(LogInDialogFragment.this, usernameView.getText().toString(), passwordView.getText().toString());
                     }
 
                 })
