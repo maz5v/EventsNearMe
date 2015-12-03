@@ -151,7 +151,9 @@ public class WelcomePage extends AppCompatActivity
         if (savedInstanceState != null) {
             loggedIn = savedInstanceState.getBoolean("loggedIn");
             userName = savedInstanceState.getString("userName");
-            login();
+            if (loggedIn == true) {
+                login();
+            }
         }
 
         Intent intent = getIntent();
