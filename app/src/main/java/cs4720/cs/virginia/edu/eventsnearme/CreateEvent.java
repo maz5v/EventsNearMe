@@ -74,6 +74,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
     private Location mLastLocation;
 
     private ParseFile imageFile = null;
+    private byte[] rotatePic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,11 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                 rating = savedInstanceState.getInt("rating");
                 rated = savedInstanceState.getBoolean("rated");
                 ratingView.setText("" + rating);
+            }
+            if (savedInstanceState.getByteArray("rotatePic") != null) {
+                rotatePic = savedInstanceState.getByteArray("rotatePic");
+                imageFile = new ParseFile("image.webp", rotatePic);
+                imageFile.saveInBackground();
             }
         }
 
@@ -131,6 +137,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             super.onSaveInstanceState(outState);
         outState.putInt("rating", rating);
         outState.putBoolean("rated", rated);
+        outState.putByteArray("rotatePic", rotatePic);
     }
 
     @Override
@@ -232,6 +239,8 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         selectionIntent.putExtra(EXTRA_LOGGED, loggedIn);
         intent.putExtra(EXTRA_SENDER, "CreateEvent");
         selectionIntent.putExtra(EXTRA_SENDER, "CreateEvent");
+
+
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
             intent.putExtra(EXTRA_LONG, String.valueOf(mLastLocation.getLongitude()));
@@ -360,6 +369,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
                     byte[] imageData = stream.toByteArray();
+                    rotatePic = imageData;
                     Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
@@ -380,6 +390,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                     imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
 
                     byte[] imageData = stream.toByteArray();
+                    rotatePic = imageData;
                     Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
