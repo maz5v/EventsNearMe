@@ -98,6 +98,7 @@
             android:layout_gravity="center_horizontal"
             android:src="@android:drawable/arrow_down_float"
             android:onClick="downVote" />
+
     </LinearLayout>
 
     <ImageView
@@ -107,11 +108,12 @@
         android:layout_above="@+id/returnHome"
         android:layout_below="@id/ratingBlock"
         android:layout_centerHorizontal="true"
-
-
+        android:cropToPadding="false"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dp"
         android:contentDescription="@string/Event_Picture" />
 
-    <!--android:adjustViewBounds="true"-->
+    <!---->
     <!--android:layout_marginTop="100dp"-->
 
     <Button
