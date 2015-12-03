@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import java.io.FileOutputStream;
@@ -56,6 +57,9 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private String dbLat;
     private String dbLong;
 
+    private ParseFile imageFile = null;
+    private byte[] rotatePic = null;
+
     private Intent intent;
 
     @Override
@@ -82,6 +86,10 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
         rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
         user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
         logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
+        rotatePic = intent.getByteArrayExtra(CreateEvent.EXTRA_PHOTOARRAY);
+
+        imageFile = new ParseFile("image.webp", rotatePic);
+        imageFile.saveInBackground();
 
     }
 
@@ -221,7 +229,11 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
             eventObject.put("tag2", tag2);
             eventObject.put("tag3", tag3);
             eventObject.put("userName", user);
+            eventObject.put("ratingsSum", Integer.parseInt(rating));
             eventObject.put("timesRated", 1);
+            if (imageFile != null) {
+                eventObject.put("image", imageFile);
+            }
             eventObject.saveInBackground();
             // Stop PARSE stuff
 
