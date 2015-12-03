@@ -50,6 +50,8 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
     private String tag3;
     private String photoURI;
     private String rating;
+    private String user;
+    private boolean logged;
 
     private String dbLat;
     private String dbLong;
@@ -78,6 +80,8 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
         tag3 = intent.getStringExtra(CreateEvent.EXTRA_TAG3);
         photoURI = intent.getStringExtra(CreateEvent.PHOTO_URI);
         rating = intent.getStringExtra(CreateEvent.EXTRA_RATING);
+        user = intent.getStringExtra(CreateEvent.EXTRA_USERNAME);
+        logged = intent.getBooleanExtra(CreateEvent.EXTRA_LOGGED, false);
 
     }
 
@@ -216,6 +220,7 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
             eventObject.put("tag1", tag1);
             eventObject.put("tag2", tag2);
             eventObject.put("tag3", tag3);
+            eventObject.put("userName", user);
             eventObject.saveInBackground();
             // Stop PARSE stuff
 

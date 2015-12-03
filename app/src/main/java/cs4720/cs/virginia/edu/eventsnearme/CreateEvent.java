@@ -200,7 +200,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         selectionIntent.putExtra(EXTRA_RATING, ratingString);
 
         intent.putExtra(EXTRA_USERNAME, userName);
+        selectionIntent.putExtra(EXTRA_USERNAME, userName);
         intent.putExtra(EXTRA_LOGGED, loggedIn);
+        selectionIntent.putExtra(EXTRA_LOGGED, loggedIn);
 
         if (mLastLocation != null) {
             intent.putExtra(EXTRA_LAT, String.valueOf(mLastLocation.getLatitude()));
