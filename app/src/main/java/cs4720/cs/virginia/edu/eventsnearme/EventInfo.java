@@ -263,7 +263,8 @@ public class EventInfo extends AppCompatActivity {
     }
 
     public void deleteEvent(View view) {
-        DialogFragment dialog = new ConfirmDeleteDialogFragment();
+        Intent intent = getIntent();
+        DialogFragment dialog = ConfirmDeleteDialogFragment.newInstance(intent.getStringExtra(CreateEvent.EXTRA_EVENTID));
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "NoticeDialogFragment");
     }
