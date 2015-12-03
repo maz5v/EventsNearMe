@@ -146,9 +146,15 @@ public class WelcomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
 
-        Intent intent = getIntent();
-
         userName = "lainfiafnvfavnvadfv6i76ju";
+
+        if (savedInstanceState != null) {
+            loggedIn = savedInstanceState.getBoolean("loggedIn");
+            userName = savedInstanceState.getString("userName");
+            login();
+        }
+
+        Intent intent = getIntent();
 
         Log.i("Welcome user BEFORE", userName);
         Log.i("Welcome logged BEFORE", "" + loggedIn);
