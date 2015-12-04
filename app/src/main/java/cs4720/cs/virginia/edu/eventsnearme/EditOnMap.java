@@ -68,7 +68,6 @@ public class EditOnMap extends AppCompatActivity implements GoogleApiClient.Conn
         photoURI = intent.getStringExtra(EditEvent.PHOTO_URI);
         rating = intent.getStringExtra(EditEvent.EXTRA_RATING);
 
-        Log.i("Rating", rating);
     }
 
     @Override
@@ -120,7 +119,6 @@ public class EditOnMap extends AppCompatActivity implements GoogleApiClient.Conn
         mLatitudeText = new TextView(getApplicationContext());
         mLongitudeText = new TextView(getApplicationContext());
         if (mLastLocation != null) {
-            //Log.i("Latitude", "Latitude = " + mLastLocation.getLatitude());
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         }
@@ -129,7 +127,6 @@ public class EditOnMap extends AppCompatActivity implements GoogleApiClient.Conn
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         map = mapFragment.getMap();
-        Log.i("Map Check", map.toString());
         map.setMyLocationEnabled(true);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -193,13 +190,12 @@ public class EditOnMap extends AppCompatActivity implements GoogleApiClient.Conn
                             eventObject.saveInBackground();
                         }
                     } else {
-                        //Log.d("score", "Error: " + e.getMessage());
+
                     }
                 }
             });
 
             intent.setClass(this, EventInfo.class);
-            // maybe set lat/long? and also in selectOnMap?
             startActivity(intent);
         }
     }

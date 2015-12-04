@@ -125,7 +125,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
         }
 
         myLat = intent.getStringExtra(EventInfo.EXTRA_LAT);
-        Log.i("My latitude 2", myLat);
         myLong = intent.getStringExtra(EventInfo.EXTRA_LONG);
         myPhoto = intent.getStringExtra(EventInfo.PHOTO_URI);
 
@@ -205,7 +204,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Log.i("IOException occurred: ", ex.getMessage());
+
             }
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -244,15 +243,12 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 photoURI = Uri.fromFile(photoFile);
                 photoString = photoURI.toString();
                 myPhoto = photoString;
-                //Bundle extras = data.getExtras();
-                //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
                     byte[] imageData = stream.toByteArray();
                     rotatePic = imageData;
-                    Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
@@ -266,8 +262,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
                 photoURI = data.getData();
                 photoString = photoURI.toString();
                 myPhoto = photoString;
-                //Bundle extras = data.getExtras();
-                //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -275,7 +269,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
                     byte[] imageData = stream.toByteArray();
                     rotatePic = imageData;
-                    Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
@@ -305,10 +298,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
         query.whereEqualTo("eventId", id);
-        //Log.i("The title", myTitle);
-        //Log.i("The title length", ""+myTitle.length());
-        //String temppp = "testing space ";
-        //Log.i("The title", "" + temppp.length());
 
         Intent intent = new Intent(this, EventInfo.class);
         Intent selectionIntent = new Intent(this, EditOnMap.class);
@@ -365,7 +354,6 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
-        Log.i("Radio Button ID", "" + radioButtonId);
         if (radioButtonId == -1) {
             intent.putExtra(EXTRA_LAT, myLat);
             intent.putExtra(EXTRA_LONG, myLong);
@@ -420,7 +408,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
                         }
                     } else {
-                        //Log.d("score", "Error: " + e.getMessage());
+
                     }
                 }
             });
@@ -484,7 +472,7 @@ public class EditEvent extends AppCompatActivity implements GoogleApiClient.Conn
 
                         }
                     } else {
-                        //Log.d("score", "Error: " + e.getMessage());
+
                     }
                 }
             });

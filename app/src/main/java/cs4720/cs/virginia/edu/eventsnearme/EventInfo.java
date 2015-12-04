@@ -98,18 +98,15 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
         final ImageView eventImage = (ImageView)findViewById(R.id.eventPicture);
         String sender = intent.getStringExtra(CreateEvent.EXTRA_SENDER);
         if (sender.equals("CreateEvent") || sender.equals("EditEvent")) {
-            Log.d("reached here", "reached here");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else eventImage.setImageURI(Uri.parse(imageURIString));
         } else if (sender.equals("EventsMap") || sender.equals("EventsPage")) {
-            Log.d("reached here 1", "reached here 1");
             String imageURIString = intent.getStringExtra(CreateEvent.PHOTO_URI);
             if (imageURIString.equals("NO_IMAGE")) {
                 eventImage.setVisibility(View.GONE);
             } else {
-                Log.d("reached here 2", "reached here 2");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
                 query.whereEqualTo("eventId", intent.getStringExtra(CreateEvent.EXTRA_EVENTID));
                 query.findInBackground(new FindCallback<ParseObject>() {
@@ -125,9 +122,8 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
                                             // data has the bytes for the resume
                                             Bitmap bmpNew = BitmapFactory.decodeByteArray(data, 0, data.length);
                                             eventImage.setImageBitmap(bmpNew);
-                                            //eventImage.draw();
                                         } else {
-                                            // something went wrong
+
                                         }
                                     }
                                 });
@@ -145,10 +141,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
         if (lat == null) {
             lat = intent.getStringExtra(EditEvent.EXTRA_LAT);
         }
-        if (lat == null) {
-            Log.i("Still null", "Fuck");
-        }
-        // Log.i("My latitude 2", lat);
         myLat = lat;
 
         String lon = intent.getStringExtra(EventsMap.EXTRA_LONG);
@@ -157,9 +149,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
         }
         if (lon == null) {
             lon = intent.getStringExtra(EditEvent.EXTRA_LONG);
-        }
-        if (lon == null) {
-            Log.i("Still null", "Fuck");
         }
         myLong = lon;
 
@@ -193,7 +182,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
             @Override
             public void done(List<ParseObject> objectList, ParseException e) {
                 if (e == null) {
-                    Log.d("objectList.size:", "" + objectList.size());
                     for (ParseObject o : objectList) {
                         String creator = (String) o.get("userName");
                         if (!creator.equals(user)) {
@@ -213,7 +201,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
     protected void onPause() {
         super.onPause();
 
-        //Instead of checking title, we want to check ID
         if (rating != initialRating) {
             TextView titleText = (TextView)findViewById(R.id.title);
             String myTitle = titleText.getText().toString();
@@ -261,7 +248,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -293,8 +279,6 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
         Intent intent = new Intent(this, WelcomePage.class);
         intent.putExtra(EXTRA_USERNAME, user);
         intent.putExtra(EXTRA_LOGGED, logged);
-        Log.i("My user", user);
-        Log.i("Logged IN", ""+logged);
         startActivity(intent);
     }
 

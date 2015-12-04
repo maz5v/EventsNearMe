@@ -32,7 +32,6 @@ public class ConfirmDeleteDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         final String eventId = getArguments().getString("eventId");
-        Log.d("Event ID in fragment:", eventId);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.confirm_delete)
                 .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
@@ -44,7 +43,6 @@ public class ConfirmDeleteDialogFragment extends DialogFragment {
                             @Override
                             public void done(List<ParseObject> objectList, ParseException e) {
                                 if (e == null) {
-                                    Log.d("objectList.size:", "" + objectList.size());
                                     for (ParseObject o : objectList) {
                                         o.deleteInBackground();
                                     }
@@ -68,7 +66,6 @@ public class ConfirmDeleteDialogFragment extends DialogFragment {
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface ConfirmDeleteDialogListener {
         public void onConfirmDeleteDialogPositiveClick(DialogFragment dialog);
-        //public void onLoginDialogNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events

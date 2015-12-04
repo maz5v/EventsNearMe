@@ -92,9 +92,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         userName = intent.getStringExtra(WelcomePage.EXTRA_USERNAME);
         loggedIn = intent.getBooleanExtra(WelcomePage.EXTRA_LOGGED, false);
 
-        Log.i("Username", userName);
-        Log.i("Boolean value", "" + loggedIn);
-
         if (savedInstanceState != null) {
             TextView ratingView = (TextView)findViewById(R.id.eventRating);
             if (savedInstanceState.getBoolean("rated")) {
@@ -202,7 +199,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
         ToggleButton tagButton1 = (ToggleButton) findViewById(R.id.tag1);
         String tag1 = "";
         if(tagButton1.isChecked()) {
-            //tag1 = tagButton1.getText().toString();
             tag1 = "Food";
         }
         intent.putExtra(EXTRA_TAG1, tag1);
@@ -268,7 +264,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             toast.show();
         }
         else {
-            Log.i("Radio button ID: ", Integer.toString(radioButtonId));
             if (radioButtonId == 2131558540) {
                 // Use current location
                 try {
@@ -293,10 +288,9 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
                     }
                     finalString = finalString + " ||| ";
                     output.write(finalString.getBytes());
-                    Log.d("Error Checking: ", finalString);
                     output.close();
                 } catch (Exception e) {
-                    Log.i("Exception writing file", e.getMessage());
+
                 }
 
                 // Start PARSE stuff
@@ -334,7 +328,7 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Log.i("IOException occurred: ", ex.getMessage());
+
             }
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
@@ -372,15 +366,12 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             if (resultCode == RESULT_OK) {
                 photoURI = Uri.fromFile(photoFile);
                 photoString = photoURI.toString();
-                //Bundle extras = data.getExtras();
-                //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     imageBitmap.compress(Bitmap.CompressFormat.WEBP, 75, stream);
                     byte[] imageData = stream.toByteArray();
                     rotatePic = imageData;
-                    Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
@@ -393,8 +384,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
             if (resultCode == RESULT_OK) {
                 photoURI = data.getData();
                 photoString = photoURI.toString();
-                //Bundle extras = data.getExtras();
-                //Bitmap imageBitmap = (Bitmap) extras.get("data");
                 try {
                     Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoURI);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -402,7 +391,6 @@ public class CreateEvent extends AppCompatActivity implements GoogleApiClient.Co
 
                     byte[] imageData = stream.toByteArray();
                     rotatePic = imageData;
-                    Log.d("image size", ""+imageData.length);
                     imageFile = new ParseFile("image.webp", imageData);
                     imageFile.saveInBackground();
                 } catch (IOException e) {
