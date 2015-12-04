@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -177,6 +178,26 @@ public class EventInfo extends AppCompatActivity {
             rating = Integer.parseInt(rating2);
             initialRating = Integer.parseInt(rating2);
         }
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
+        query.whereEqualTo("eventId", intent.getStringExtra(CreateEvent.EXTRA_EVENTID));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objectList, ParseException e) {
+                if (e == null) {
+                    Log.d("objectList.size:", "" + objectList.size());
+                    for (ParseObject o : objectList) {
+                        String creator = (String) o.get("userName");
+                        if (!creator.equals(user)) {
+                            Button editButton = (Button) findViewById(R.id.editEvent);
+                            editButton.setVisibility(View.INVISIBLE);
+                            Button deleteButton = (Button) findViewById(R.id.deleteButton);
+                            deleteButton.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+            }
+        });
 
     }
 

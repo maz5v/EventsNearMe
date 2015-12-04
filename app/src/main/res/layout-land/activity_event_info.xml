@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_event"
-        android:id="@+id/button5"
+        android:id="@+id/editEvent"
         android:onClick="editEvent"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/returnHome"
@@ -131,9 +131,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:id="@+id/button16"
+        android:id="@+id/deleteButton"
         android:onClick="deleteEvent"
-        android:layout_alignTop="@+id/button5"
+        android:layout_alignTop="@+id/editEvent"
         android:layout_toRightOf="@+id/returnHome"
         android:layout_toEndOf="@+id/returnHome" />
 

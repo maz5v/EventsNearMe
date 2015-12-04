@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/edit_event"
-        android:id="@+id/button10"
+        android:id="@+id/editEvent"
         android:layout_marginBottom="25dp"
         android:onClick="editEvent"
         android:layout_alignParentBottom="true"
@@ -136,7 +136,7 @@
         android:layout_height="wrap_content"
         android:text="Delete"
         android:id="@+id/deleteButton"
-        android:layout_alignTop="@+id/button10"
+        android:layout_alignTop="@+id/editEvent"
         android:layout_toRightOf="@+id/ratingBlock"
         android:layout_toEndOf="@+id/ratingBlock"
         android:onClick="deleteEvent" />
