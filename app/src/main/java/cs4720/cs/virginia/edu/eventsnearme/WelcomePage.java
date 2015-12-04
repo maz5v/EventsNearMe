@@ -210,7 +210,6 @@ public class WelcomePage extends AppCompatActivity
         DialogFragment dialog = new RegisterUserDialogFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "NoticeDialogFragment");
-
     }
 
     public void findSomethingNearMe(View view) {

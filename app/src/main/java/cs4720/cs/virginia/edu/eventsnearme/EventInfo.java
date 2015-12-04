@@ -26,7 +26,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-public class EventInfo extends AppCompatActivity {
+public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogFragment.ConfirmDeleteDialogListener{
 
     public final static String EXTRA_EVENTID = "cs4720.cs.virginia.edu.eventsnearme.EVENTID";
     public final static String EXTRA_TITLE = "cs4720.cs.virginia.edu.eventsnearme.TITLE";
@@ -52,6 +52,14 @@ public class EventInfo extends AppCompatActivity {
     private int rating;
     private int initialRating;
     private boolean logged = false;
+
+    @Override
+    public void onConfirmDeleteDialogPositiveClick(DialogFragment dialog) {
+        Intent intent = new Intent(this, WelcomePage.class);
+        intent.putExtra(EXTRA_USERNAME, user);
+        intent.putExtra(EXTRA_LOGGED, logged);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
