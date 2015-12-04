@@ -137,7 +137,6 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
         mLatitudeText = new TextView(getApplicationContext());
         mLongitudeText = new TextView(getApplicationContext());
         if (mLastLocation != null) {
-            //Log.i("Latitude", "Latitude = " + mLastLocation.getLatitude());
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         }
@@ -146,7 +145,6 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         map = mapFragment.getMap();
-        Log.i("Map Check", map.toString());
         map.setMyLocationEnabled(true);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -202,15 +200,12 @@ public class SelectOnMap extends FragmentActivity implements GoogleApiClient.Con
                     finalString = finalString + " Image: " + photoURI;
                 else finalString = finalString + " Image: NO_IMAGE";
                 finalString = finalString + " Rating: " + rating;
-                Log.i("Marker lat: ", String.valueOf(marker.getPosition().latitude));
-                Log.i("Marker lng: ", String.valueOf(marker.getPosition().longitude));
                 dbLat = String.valueOf(marker.getPosition().latitude);
                 dbLong = String.valueOf(marker.getPosition().longitude);
                 finalString = finalString + " Latitude: " + String.valueOf(marker.getPosition().latitude);
                 finalString = finalString + " Longitude: " + String.valueOf(marker.getPosition().longitude);
                 finalString = finalString + " ||| ";
                 output.write(finalString.getBytes());
-                Log.d("Error Checking: ", finalString);
                 output.close();
             } catch (Exception e) {
                 Log.i("Exception writing file", e.getMessage());

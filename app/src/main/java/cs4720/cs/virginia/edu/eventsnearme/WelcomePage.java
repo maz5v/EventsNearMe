@@ -47,13 +47,6 @@ public class WelcomePage extends AppCompatActivity
         login(username, false, password);
     }
 
-    /*
-    @Override
-    public void onLoginDialogNegativeClick(DialogFragment dialog) {
-
-    }
-    */
-
     @Override
     public void onRegisterUserDialogPositiveClick(DialogFragment dialog, String username, String password) {
         ParseUserClass reg = new ParseUserClass();
@@ -67,7 +60,6 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.button3).setVisibility(View.VISIBLE);
         findViewById(R.id.button4).setVisibility(View.VISIBLE);
         findViewById(R.id.button8).setVisibility(View.VISIBLE);
-        //findViewById(R.id.button11).setVisibility(View.VISIBLE);
         findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -75,7 +67,6 @@ public class WelcomePage extends AppCompatActivity
     }
 
     public void login(String user, boolean registering, String password) {
-        Log.d("username", user);
         final String finalUser = user;
         final String finalPassword = password;
         if (!registering) {
@@ -106,7 +97,6 @@ public class WelcomePage extends AppCompatActivity
                             findViewById(R.id.button3).setVisibility(View.VISIBLE);
                             findViewById(R.id.button4).setVisibility(View.VISIBLE);
                             findViewById(R.id.button8).setVisibility(View.VISIBLE);
-                            //findViewById(R.id.button11).setVisibility(View.VISIBLE);
                             findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
                             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
                             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -122,7 +112,6 @@ public class WelcomePage extends AppCompatActivity
             findViewById(R.id.button3).setVisibility(View.VISIBLE);
             findViewById(R.id.button4).setVisibility(View.VISIBLE);
             findViewById(R.id.button8).setVisibility(View.VISIBLE);
-            //findViewById(R.id.button11).setVisibility(View.VISIBLE);
             findViewById(R.id.logoutButton).setVisibility(View.VISIBLE);
             findViewById(R.id.loginButton).setVisibility(View.INVISIBLE);
             findViewById(R.id.registerButton).setVisibility(View.INVISIBLE);
@@ -135,7 +124,6 @@ public class WelcomePage extends AppCompatActivity
         findViewById(R.id.button3).setVisibility(View.INVISIBLE);
         findViewById(R.id.button4).setVisibility(View.INVISIBLE);
         findViewById(R.id.button8).setVisibility(View.INVISIBLE);
-        //findViewById(R.id.button11).setVisibility(View.INVISIBLE);
         findViewById(R.id.logoutButton).setVisibility(View.INVISIBLE);
         findViewById(R.id.loginButton).setVisibility(View.VISIBLE);
         findViewById(R.id.registerButton).setVisibility(View.VISIBLE);
@@ -158,9 +146,6 @@ public class WelcomePage extends AppCompatActivity
 
         Intent intent = getIntent();
 
-        Log.i("Welcome user BEFORE", userName);
-        Log.i("Welcome logged BEFORE", "" + loggedIn);
-
         if (loggedIn) {
             login();
         }
@@ -169,11 +154,6 @@ public class WelcomePage extends AppCompatActivity
             loggedIn = intent.getBooleanExtra(EventInfo.EXTRA_LOGGED, false);
             login();
         }
-
-
-
-        Log.i("Welcome user AFTER", userName);
-        Log.i("Welcome logged AFTER", "" + loggedIn);
 
     }
 
@@ -203,7 +183,6 @@ public class WelcomePage extends AppCompatActivity
         DialogFragment dialog = new LogInDialogFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         dialog.show(ft, "NoticeDialogFragment");
-
     }
 
     public void showRegisterWindow(View view) {

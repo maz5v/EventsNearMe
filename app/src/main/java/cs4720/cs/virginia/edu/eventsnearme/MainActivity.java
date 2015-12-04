@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
-
-    }
+     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         mLatitudeText = new TextView(getApplicationContext());
         mLongitudeText = new TextView(getApplicationContext());
         if (mLastLocation != null) {
-            //Log.i("Latitude", "Latitude = " + mLastLocation.getLatitude());
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         }

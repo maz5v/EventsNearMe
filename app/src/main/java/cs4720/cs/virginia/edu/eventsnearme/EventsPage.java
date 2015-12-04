@@ -71,58 +71,6 @@ public class EventsPage extends AppCompatActivity {
         user = intent.getStringExtra(WelcomePage.EXTRA_USERNAME);
         logged = intent.getBooleanExtra(WelcomePage.EXTRA_LOGGED, false);
 
-        /*try {
-            FileInputStream input = openFileInput("eventDataFile");
-            int character;
-            String temp = "";
-            while((character = input.read()) != -1) {
-                temp = temp + Character.toString((char)character);
-            }
-
-            fileInfo = temp;
-            Log.d("File info", fileInfo);
-
-            while(true) {
-                int index = temp.indexOf("Title: ");
-                if (index == -1) {
-                    break;
-                }
-                temp = temp.substring(index + 7);
-                int index2 = temp.indexOf("Description: ")-1;
-                String listInput = temp.substring(0, index2);
-                tempTitles.add(listInput);
-            }
-
-            //Just checking it worked
-            String tester = "";
-            for(int i = 0; i < tempTitles.size(); i++) {
-                tester = tester + tempTitles.get(i) + ", ";
-            }
-            Log.d("Test values: ", tester);
-
-            titles = new String[tempTitles.size()];
-            for(int i = 0; i < tempTitles.size(); i++) {
-                titles[i] = tempTitles.get(i);
-            }
-
-            //Just checking it worked
-            tester = "";
-            for(int i = 0; i < titles.length; i++) {
-                tester = tester + titles[i] + ", ";
-            }
-            Log.d("Test values: ", tester);
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, titles);
-            ListView listView = (ListView) findViewById(R.id.listView);
-            listView.setAdapter(adapter);
-            listView.setOnItemClickListener(mMessageClickedHandler);
-
-        } catch (Exception e) {
-
-        }*/
-
-        ///////////////
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
         query.whereEqualTo("userName", user);
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -166,10 +114,8 @@ public class EventsPage extends AppCompatActivity {
                 ListView listView = (ListView) findViewById(R.id.listView);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(mMessageClickedHandler);
-
             }
         });
-
     }
 
     @Override
@@ -212,84 +158,7 @@ public class EventsPage extends AppCompatActivity {
             intent.putExtra(EXTRA_USERNAME, user);
             intent.putExtra(EXTRA_LOGGED, logged);
             intent.putExtra(EXTRA_SENDER, "EventsPage");
-
-            /*String temp = fileInfo;
-
-            // Maybe position-1
-            for(int i = 0; i < position; i++) {
-                int index = temp.indexOf(" ||| ");
-                temp = temp.substring(index + 5);
-            }
-
-            int index = temp.indexOf("Title: ");
-            temp = temp.substring(index + 7);
-            int spaceIndex = temp.indexOf(" Description:");
-            String title = temp.substring(0, spaceIndex);
-            Log.i("Title: ", title);
-            intent.putExtra(EXTRA_TITLE, title);
-
-            index = temp.indexOf("Description: ");
-            temp = temp.substring(index + 13);
-            spaceIndex = temp.indexOf(" Tag 1:");
-            String description = temp.substring(0, spaceIndex);
-            Log.i("Description: ", description);
-            intent.putExtra(EXTRA_DESCRIPTION, description);
-
-            index = temp.indexOf("Tag 1: ");
-            temp = temp.substring(index + 7);
-            spaceIndex = temp.indexOf(" Tag 2:");
-            String tag1 = temp.substring(0, spaceIndex);
-            //if (tag1.length() > 1)
-            //    tag1 = "Food";
-            Log.i("Tag 1: ", tag1);
-            intent.putExtra(EXTRA_TAG1, tag1);
-
-            index = temp.indexOf("Tag 2: ");
-            temp = temp.substring(index + 7);
-            spaceIndex = temp.indexOf(" Tag 3:");
-            String tag2 = temp.substring(0, spaceIndex);
-            //if (tag2.length() > 1)
-            //    tag2 = "Entertainment";
-            Log.i("Tag 2: ", tag2);
-            intent.putExtra(EXTRA_TAG2, tag2);
-
-            index = temp.indexOf("Tag 3: ");
-            temp = temp.substring(index + 7);
-            spaceIndex = temp.indexOf(" Image:");
-            String tag3 = temp.substring(0, spaceIndex);
-            //if (tag3.length() > 1)
-            //    tag3 = "Shopping";
-            Log.i("Tag 3: ", tag3);
-            intent.putExtra(EXTRA_TAG3, tag3);
-
-            index = temp.indexOf("Image: ");
-            temp = temp.substring(index + 7);
-            spaceIndex = temp.indexOf(" Rating:");
-            String imageURI = temp.substring(0, spaceIndex);
-            Log.i("Image URI: ", imageURI);
-            intent.putExtra(PHOTO_URI, imageURI);
-
-            index = temp.indexOf("Rating: ");
-            temp = temp.substring(index + 8);
-            spaceIndex = temp.indexOf(" Latitude:");
-            String rating = temp.substring(0, spaceIndex);
-            Log.i("Rating: ", rating);
-            intent.putExtra(EXTRA_RATING, rating);
-
-            index = temp.indexOf("Latitude: ");
-            temp = temp.substring(index + 10);
-            spaceIndex = temp.indexOf(" Longitude: ");
-            String lat = temp.substring(0, spaceIndex);
-            Log.i("Latitude: ", lat);
-            intent.putExtra(EXTRA_LAT, lat);
-
-            index = temp.indexOf("Longitude: ");
-            temp = temp.substring(index + 11);
-            spaceIndex = temp.indexOf(" ||| ");
-            String lon = temp.substring(0, spaceIndex);
-            Log.i("Longitude: ", lon);
-            intent.putExtra(EXTRA_LONG, lon); */
-
+            
             startActivity(intent);
 
         }

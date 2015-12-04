@@ -62,7 +62,6 @@ public class RegisterUserDialogFragment extends DialogFragment {
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface RegisterUserDialogListener {
         public void onRegisterUserDialogPositiveClick(DialogFragment dialog, String username, String password);
-        //public void onRegisterDialogNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
