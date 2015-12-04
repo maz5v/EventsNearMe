@@ -206,7 +206,7 @@ public class EventInfo extends AppCompatActivity implements ConfirmDeleteDialogF
             String myTitle = titleText.getText().toString();
             myTitle = myTitle.substring(7);
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ParseCLass");
-            query.whereEqualTo("title", myTitle);
+            query.whereEqualTo("eventId", myId);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objectList, ParseException e) {
